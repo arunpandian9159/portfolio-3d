@@ -1,162 +1,239 @@
-'use client';
+"use client"
 
-import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, Github, Users, FolderOpen } from 'lucide-react';
-import { projects } from '@/data/portfolio';
-import { Project } from '@/types';
-import SectionHeader from '@/components/ui/SectionHeader';
-import AnimatedElement from '@/components/ui/AnimatedElement';
+import { useState } from "react"
+import { ExternalLink, X, Download } from "lucide-react"
+import Image from "next/image"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-
-    setMousePosition({ x: rotateY, y: rotateX });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
-
-  return (
-    <AnimatedElement delay={index * 200}>
-      <motion.div
-        ref={cardRef}
-        className="project-card-3d group relative h-full"
-        style={{ perspective: '1000px' }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <motion.div
-          className="glass-card p-6 h-full transform-gpu border border-white/20 dark:border-white/10 relative overflow-hidden"
-          style={{ transformStyle: 'preserve-3d' }}
-          animate={{
-            rotateX: isHovered ? mousePosition.y : 0,
-            rotateY: isHovered ? mousePosition.x : 0,
-          }}
-          whileHover={{
-            scale: 1.02,
-            boxShadow: '0 25px 50px -12px rgba(45, 166, 178, 0.25)'
-          }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-        >
-          {/* Gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-cyan-500/5 dark:from-teal-500/10 dark:to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-
-          {/* Project Header */}
-          <div className="flex items-start justify-between mb-4 relative z-10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg">
-                <FolderOpen className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
-                {project.title}
-              </h3>
-            </div>
-            <div className="flex gap-1">
-              {project.githubUrl && (
-                <motion.a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-lg text-gray-500 hover:text-teal-500 hover:bg-teal-50 dark:text-gray-400 dark:hover:text-teal-400 dark:hover:bg-teal-900/30 transition-all duration-200"
-                  aria-label="View on GitHub"
-                >
-                  <Github className="w-5 h-5" />
-                </motion.a>
-              )}
-              {project.liveUrl && (
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-lg text-gray-500 hover:text-teal-500 hover:bg-teal-50 dark:text-gray-400 dark:hover:text-teal-400 dark:hover:bg-teal-900/30 transition-all duration-200"
-                  aria-label="View live project"
-                >
-                  <ExternalLink className="w-5 h-5" />
-                </motion.a>
-              )}
-            </div>
-          </div>
-
-          {/* Project Description */}
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 relative z-10 text-sm">
-            {project.description}
-          </p>
-
-          {/* Technology Tags */}
-          <div className="flex flex-wrap gap-2 mb-4 relative z-10">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-teal-500/10 to-cyan-500/10 dark:from-teal-500/20 dark:to-cyan-500/20 text-teal-700 dark:text-teal-300 rounded-full border border-teal-500/20 dark:border-teal-400/30"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          {/* Project Meta */}
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 relative z-10 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-            <Users className="w-4 h-4 mr-2 text-teal-500 dark:text-teal-400" />
-            <span>Team of {project.teamSize}</span>
-          </div>
-
-          {/* Shine effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100"
-            animate={{
-              x: isHovered ? '200%' : '-100%',
-            }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-          />
-        </motion.div>
-      </motion.div>
-    </AnimatedElement>
-  );
-}
+const projectsData = [
+  {
+    id: "vehicle-detection",
+    title: "Vehicle Detection and Identification",
+    description:
+      "A system used to detect and identify vehicles, including number plate detection for security purposes.",
+    tech: ["Python"],
+    teamSize: 3,
+  },
+  {
+    id: "nft-certification",
+    title: "NFT Based Certification System for digital artwork using Polygon Blockchain",
+    description:
+      "A decentralized certification system for digital artwork leveraging NFT technology on the Polygon blockchain. Ensures authenticity, ownership, and provenance tracking.",
+    tech: ["JavaScript", "Solidity"],
+    teamSize: 3,
+  },
+]
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState<string | null>(null)
+
   return (
-    <section id="projects" className="section-padding bg-white dark:bg-charcoal-800">
-      <div className="container-custom">
-        <SectionHeader title="Projects" />
-        
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              index={index}
-            />
-          ))}
+    <>
+      <section id="projects" className="py-10 sm:py-16 md:py-20 px-2 sm:px-4 lg:px-8 section-padding bg-white dark:bg-charcoal-800">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 md:mb-16 bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent">
+            Projects
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+            {projectsData.map((project, index) => (
+              <Card
+                key={index}
+                className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border-white/20 dark:border-white/10 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-500/20 group cursor-pointer"
+                onClick={() => setSelectedProject(project.id)}
+              >
+                <CardHeader>
+                  <CardTitle className="text-xl text-teal-600 dark:text-teal-400 group-hover:text-teal-500 dark:group-hover:text-teal-300 transition-colors flex items-center justify-between">
+                    {project.title}
+                    <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech, techIndex) => (
+                      <Badge key={techIndex} variant="secondary" className="bg-teal-500/20 text-teal-700 dark:text-teal-300">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Team Size: {project.teamSize}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+
+      {/* Project Details Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-900/95 backdrop-blur-md border border-gray-200 dark:border-white/10 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-bold text-teal-600 dark:text-teal-400">Project Details</h3>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X className="w-6 h-6 text-gray-900 dark:text-white" />
+                </button>
+              </div>
+
+              {selectedProject === "nft-certification" && (
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                      NFT Based Certification System for Digital Artwork using Polygon Blockchain
+                    </h4>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                      This project presents a decentralized certification system for digital artwork leveraging
+                      Non-Fungible Token (NFT) technology on the Polygon blockchain. The system ensures authenticity,
+                      ownership verification, and provenance tracking for digital art pieces, providing artists and
+                      collectors with a secure and transparent platform for digital art certification.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Conference Presentation</h5>
+                      <div className="bg-gray-100 dark:bg-white/5 rounded-lg p-4 mb-4">
+                        <Image
+                          src="/SRM Conference image.jpg"
+                          alt="Conference Presentation"
+                          width={400}
+                          height={300}
+                          className="w-full rounded-lg mb-3"
+                        />
+                        <p className="text-gray-600 dark:text-gray-300 text-sm">
+                          Presented at the 2nd International Conference on Data Science and Business Systems
+                          (ICDSBS 2025) at SRM Institute of Science and Technology, Chennai.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Certificate of Presentation</h5>
+                      <div className="bg-gray-100 dark:bg-white/5 rounded-lg p-4 mb-4">
+                        <Image
+                          src="/certificate of presentation.png"
+                          alt="Certificate of Presentation"
+                          width={400}
+                          height={300}
+                          className="w-full rounded-lg mb-3"
+                        />
+                        <p className="text-gray-600 dark:text-gray-300 text-sm">
+                          Official certificate recognizing the presentation of the research paper.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Publication Details</h5>
+                    <div className="bg-gray-100 dark:bg-white/5 rounded-lg p-4">
+                      <div className="space-y-2">
+                        <p className="text-gray-700 dark:text-gray-200"><strong>Paper ID:</strong> 622</p>
+                        <p className="text-gray-700 dark:text-gray-200"><strong>Conference:</strong> 2nd International Conference on Data Science and Business Systems (ICDSBS 2025)</p>
+                        <p className="text-gray-700 dark:text-gray-200"><strong>Venue:</strong> SRM Institute of Science and Technology, Chennai</p>
+                        <p className="text-gray-700 dark:text-gray-200"><strong>Date:</strong> 17-18 April 2025</p>
+                        <div className="mt-4 flex flex-wrap gap-3">
+                          <a
+                            href="https://ieeexplore.ieee.org/document/11031552"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-2 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+                          >
+                            <ExternalLink className="w-5 h-5" />
+                            <span>View Published Paper on IEEE Xplore</span>
+                          </a>
+                          <a
+                            href="/622_Final Camera Ready Copy.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+                          >
+                            <Download className="w-5 h-5" />
+                            <span>Download Research Paper PDF</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Technical Stack</h5>
+                    <div className="flex flex-wrap gap-2">
+                      {["JavaScript", "Solidity", "Polygon Blockchain", "NFT", "Smart Contracts", "Web3"].map((tech) => (
+                        <Badge key={tech} variant="secondary" className="bg-teal-500/20 text-teal-700 dark:text-teal-300">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Key Features</h5>
+                    <ul className="text-gray-600 dark:text-gray-300 space-y-2">
+                      <li>• Decentralized certification system for digital artwork</li>
+                      <li>• NFT-based ownership and authenticity verification</li>
+                      <li>• Polygon blockchain integration for cost-effective transactions</li>
+                      <li>• Provenance tracking and history maintenance</li>
+                      <li>• Smart contract automation for certification processes</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {selectedProject === "vehicle-detection" && (
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                      Vehicle Detection and Identification
+                    </h4>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                      A comprehensive system designed to detect and identify vehicles using computer vision
+                      techniques. The system includes advanced number plate detection capabilities for
+                      enhanced security and monitoring purposes.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Technical Stack</h5>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {["Python", "OpenCV", "Machine Learning", "Computer Vision"].map((tech) => (
+                        <Badge key={tech} variant="secondary" className="bg-teal-500/20 text-teal-700 dark:text-teal-300">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Key Features</h5>
+                    <ul className="text-gray-600 dark:text-gray-300 space-y-2">
+                      <li>• Real-time vehicle detection and tracking</li>
+                      <li>• Automatic number plate recognition (ANPR)</li>
+                      <li>• Vehicle classification and identification</li>
+                      <li>• Security monitoring and surveillance integration</li>
+                      <li>• Data logging and reporting capabilities</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Project Details</h5>
+                    <div className="bg-gray-100 dark:bg-white/5 rounded-lg p-4">
+                      <p className="text-gray-700 dark:text-gray-200"><strong>Team Size:</strong> 3 members</p>
+                      <p className="text-gray-700 dark:text-gray-200"><strong>Role:</strong> Developer and System Designer</p>
+                      <p className="text-gray-700 dark:text-gray-200"><strong>Duration:</strong> Academic Project</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }

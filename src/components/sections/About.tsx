@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Code2, Layers, Wrench, Users } from 'lucide-react';
 import { skillCategories } from '@/data/portfolio';
 import { SkillCategory } from '@/types';
@@ -62,15 +63,21 @@ export default function About() {
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
-          {/* About Text */}
+          {/* About Text with Profile Image */}
           <AnimatedElement>
             <div className="glass-card p-8 border border-white/20 dark:border-white/10 space-y-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg text-white text-xl font-bold">
-                  A
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative w-20 h-20 rounded-xl overflow-hidden shadow-lg ring-2 ring-teal-500/30">
+                  <Image
+                    src="/images/profile.jpg"
+                    alt="Arunpandian C"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">Arunpandian C</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg">Arunpandian C</h3>
                   <p className="text-sm text-teal-600 dark:text-teal-400">Full Stack Developer</p>
                 </div>
               </div>
@@ -86,7 +93,7 @@ export default function About() {
             </div>
           </AnimatedElement>
 
-          {/* Skills Grid */}
+          {/* Skills Grid using SkillCategoryCard */}
           <div className="grid sm:grid-cols-2 gap-4">
             {skillCategories.map((category, index) => (
               <SkillCategoryCard
