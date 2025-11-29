@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Moon, Sun, Menu, X, Home, User, Wrench, GraduationCap, FolderOpen, Briefcase, Mail } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
@@ -86,7 +87,12 @@ export default function Header() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
-              <span className="text-xl font-bold bg-gradient-to-r from-teal-500 to-teal-600 bg-clip-text text-transparent">AC</span>
+              <div className="flex items-center gap-2">
+                <div className="relative w-8 h-8 rounded-full overflow-hidden ring-1 ring-teal-500/30">
+                  <Image src="/icon-144.png" alt="Logo" fill className="object-cover" priority />
+                </div>
+                <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Arunpandian</span>
+              </div>
             </div>
           </div>
         </div>
@@ -114,9 +120,13 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="text-xl font-bold bg-gradient-to-r from-teal-500 to-teal-600 dark:from-teal-400 dark:to-teal-500 bg-clip-text text-transparent">
-              AC
-            </span>
+            <span className="sr-only">Go to hero</span>
+            <div className="flex items-center gap-2">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden ring-1 ring-teal-500/30">
+                <Image src="/icon-144.png" alt="Logo" fill className="object-cover" priority />
+              </div>
+              <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Arunpandian</span>
+            </div>
           </motion.button>
 
           {/* Desktop Navigation */}
