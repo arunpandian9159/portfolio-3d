@@ -6,7 +6,7 @@ import { ThemeContextType } from '@/types';
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // Default to light theme as requested
-      setTheme('light');
+      // Default to dark theme
+      setTheme('dark');
     }
   }, []);
 
@@ -41,7 +41,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   // Prevent hydration mismatch
   if (!mounted) {
-    return <div className="min-h-screen bg-cream-50">{children}</div>;
+    return <div className="min-h-screen bg-gray-900">{children}</div>;
   }
 
   return (
@@ -56,7 +56,7 @@ export function useTheme() {
   if (context === undefined) {
     // Return default values during SSR
     return {
-      theme: 'light' as const,
+      theme: 'dark' as const,
       toggleTheme: () => {},
     };
   }
