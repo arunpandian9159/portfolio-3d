@@ -1,118 +1,52 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { Code2, Layers, Wrench, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { skillsWithIcons } from '@/data/portfolio';
-import { SkillWithIcon } from '@/types';
+import { skillCategories } from '@/data/portfolio';
+import { SkillCategory } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
 import AnimatedElement from '@/components/ui/AnimatedElement';
-import Icon from '@/components/ui/Icon';
 
-function SkillCard({ skill, index }: { skill: SkillWithIcon; index: number }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+// Icon mapping for skill categories
+const categoryIcons: Record<string, React.ReactNode> = {
+  'Frontend': <Code2 className="w-5 h-5" />,
+  'Backend': <Layers className="w-5 h-5" />,
+  'Tools & Platforms': <Wrench className="w-5 h-5" />,
+  'Soft Skills': <Users className="w-5 h-5" />,
+};
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    setMousePosition({
-      x: (x - centerX) / 15,
-      y: (y - centerY) / 15,
-    });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
-
+function SkillCategoryCard({ category, index }: { category: SkillCategory; index: number }) {
   return (
     <AnimatedElement delay={index * 100}>
       <motion.div
-        ref={cardRef}
-        className="relative group cursor-pointer"
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          perspective: '1000px',
-        }}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ y: -6 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="glass-card p-5 h-full border border-white/20 dark:border-white/10 group hover:shadow-lg hover:shadow-teal-500/10"
       >
-        <motion.div
-          className="glass-card p-6 h-full text-center relative overflow-hidden border border-white/20 dark:border-white/10"
-          style={{
-            transformStyle: 'preserve-3d',
-          }}
-          animate={{
-            rotateX: isHovered ? -mousePosition.y : 0,
-            rotateY: isHovered ? mousePosition.x : 0,
-            translateZ: isHovered ? 30 : 0,
-          }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-        >
-          {/* Background gradient effect */}
-          <div
-            className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-15 transition-opacity duration-300 rounded-xl`}
-          />
-
-          {/* Glow effect */}
-          <div
-            className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-300`}
-            style={{ transform: 'translateZ(-10px)' }}
-          />
-
-          {/* Content */}
-          <div className="relative z-10">
-            {/* Icon */}
-            <motion.div
-              className={`mb-4 transform-gpu flex items-center justify-center w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${skill.color} shadow-lg`}
-              animate={{
-                rotateY: isHovered ? mousePosition.x * 2 : 0,
-                scale: isHovered ? 1.1 : 1,
-              }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-            >
-              <Icon
-                name={skill.iconName}
-                className="w-8 h-8 text-white drop-shadow-sm"
-                strokeWidth={1.5}
-              />
-            </motion.div>
-
-            {/* Skill Name */}
-            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
-              {skill.name}
-            </h3>
-
-            {/* Category */}
-            <p className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300">
-              {skill.category}
-            </p>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg text-white group-hover:scale-110 transition-transform">
+            {categoryIcons[category.title] || <Code2 className="w-5 h-5" />}
           </div>
-
-          {/* Shine effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100"
-            animate={{
-              x: isHovered ? '200%' : '-100%',
-            }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-          />
-        </motion.div>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+            {category.title}
+          </h3>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {category.skills.map((skill, skillIndex) => (
+            <motion.span
+              key={skill}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.3,
+                delay: (index * 100 + skillIndex * 50) / 1000
+              }}
+              className="px-2.5 py-1 text-xs font-medium bg-gradient-to-r from-teal-500/10 to-cyan-500/10 dark:from-teal-500/20 dark:to-cyan-500/20 text-teal-700 dark:text-teal-300 rounded-lg border border-teal-500/20 dark:border-teal-400/30"
+            >
+              {skill}
+            </motion.span>
+          ))}
+        </div>
       </motion.div>
     </AnimatedElement>
   );
@@ -129,32 +63,17 @@ export default function Skills() {
           subtitle="Technologies and tools I work with to bring ideas to life"
         />
         
-        {/* Skills Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-          {skillsWithIcons.map((skill, index) => (
-            <SkillCard
-              key={skill.name}
-              skill={skill}
-              index={index}
-            />
-          ))}
-        </div>
-
-        {/* Category Legend */}
-        <div className="flex flex-wrap justify-center gap-4 mt-12">
-          {categories.map((category, index) => (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="px-4 py-2 bg-white dark:bg-charcoal-800 rounded-full border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {category}
-            </motion.div>
-          ))}
-        </div>
-      </div>
+          {/* Skills Grid using SkillCategoryCard */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            {skillCategories.map((category, index) => (
+              <SkillCategoryCard
+                key={category.title}
+                category={category}
+                index={index}
+              />
+            ))}
+          </div>
+          </div>
     </section>
   );
 }
