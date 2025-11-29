@@ -2,6 +2,7 @@
 
 import * as LucideIcons from 'lucide-react';
 import { LucideProps } from 'lucide-react';
+import type { ComponentType } from 'react';
 
 interface IconProps extends Omit<LucideProps, 'ref'> {
   name: string;
@@ -10,7 +11,7 @@ interface IconProps extends Omit<LucideProps, 'ref'> {
 // Type-safe icon component that renders Lucide icons by name
 export default function Icon({ name, ...props }: IconProps) {
   // Get the icon component from lucide-react
-  const IconComponent = (LucideIcons as Record<string, React.ComponentType<LucideProps>>)[name];
+  const IconComponent = (LucideIcons as unknown as Record<string, ComponentType<LucideProps>>)[name];
 
   if (!IconComponent) {
     console.warn(`Icon "${name}" not found in lucide-react`);

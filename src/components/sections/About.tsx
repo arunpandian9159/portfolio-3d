@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { Code2, Layers, Wrench, Users } from 'lucide-react';
 import SectionHeader from '@/components/ui/SectionHeader';
 import AnimatedElement from '@/components/ui/AnimatedElement';
 
