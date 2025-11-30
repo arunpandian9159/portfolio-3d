@@ -24,7 +24,7 @@ export default function About() {
                     alt="Arunpandian C"
                     width={500}
                     height={500}
-                    className="object-cover"
+                    className="object-cover" 
                     priority
                   />
                 </div>
