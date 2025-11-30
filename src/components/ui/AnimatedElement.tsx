@@ -7,7 +7,7 @@ import { cn } from '@/utils/cn';
 export default function AnimatedElement({
   children,
   animation = 'fadeInUp',
-  delay = 0,
+  delay = 0, 
   className,
 }: AnimatedElementProps) {
   const { ref, hasIntersected } = useIntersectionObserver({
