@@ -59,7 +59,7 @@ export default function Hero() {
           <span className="text-sm font-medium text-teal-700 dark:text-teal-300">Welcome to my portfolio</span>
         </motion.div>
 
-        {/* Name */}
+        {/* Name */} 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
