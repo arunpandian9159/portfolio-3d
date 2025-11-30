@@ -12,7 +12,7 @@ function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
 
   return (
     <AnimatedElement delay={index * 200}>
-      <div className="relative flex gap-6 group">
+      <div className="relative flex gap-6 group"> 
         {/* Timeline Line & Marker */}
         <div className="flex flex-col items-center">
           <motion.div
