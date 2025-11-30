@@ -10,7 +10,7 @@ export default function FloatingShapes() {
     color: string;
     x: number;
     y: number;
-    delay: number;
+    delay: number; 
     duration: number;
   }>>([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
