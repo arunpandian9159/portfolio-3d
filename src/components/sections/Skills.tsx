@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { skillCategories } from '@/data/portfolio';
 import { SkillCategory } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
-import AnimatedElement from '@/components/ui/AnimatedElement';
+import AnimatedElement from '@/components/ui/AnimatedElement'; 
 
 // Icon mapping for skill categories
 const categoryIcons: Record<string, React.ReactNode> = {
