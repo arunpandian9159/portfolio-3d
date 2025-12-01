@@ -9,7 +9,7 @@ import SectionHeader from '@/components/ui/SectionHeader';
 import AnimatedElement from '@/components/ui/AnimatedElement';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import Icon from '@/components/ui/Icon';
+import Icon from '@/components/ui/Icon'; 
 import { useNotificationContext } from '@/components/NotificationProvider'; 
 
 function ContactItem({ contact, index }: { contact: ContactInfo; index: number }) {
