@@ -3,12 +3,12 @@
 import { motion } from 'framer-motion';
 import { experienceItems } from '@/data/portfolio';
 import { ExperienceItem } from '@/types';
-import SectionHeader from '@/components/ui/SectionHeader';
+import SectionHeader from '@/components/ui/SectionHeader'; 
 import AnimatedElement from '@/components/ui/AnimatedElement';
 import Icon from '@/components/ui/Icon';
 import { CheckCircle2 } from 'lucide-react';
  
-function ExperienceCard({ experience, index }: { experience: ExperienceItem; index: number }) {
+ function ExperienceCard({ experience, index }: { experience: ExperienceItem; index: number }) {
   return (
     <AnimatedElement delay={index * 150}>
       <motion.div
