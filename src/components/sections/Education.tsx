@@ -10,7 +10,7 @@ import AnimatedElement from '@/components/ui/AnimatedElement';
 function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
   const isLast = index === educationItems.length - 1;
 
-  return (
+  return ( 
     <AnimatedElement delay={index * 200}>
       <div className="relative flex gap-6 group"> 
         {/* Timeline Line & Marker */}
