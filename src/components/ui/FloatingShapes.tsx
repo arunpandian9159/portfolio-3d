@@ -9,7 +9,7 @@ export default function FloatingShapes() {
     size: number;
     color: string;
     x: number;
-    y: number;
+    y: number; 
     delay: number; 
     duration: number;
   }>>([]);
@@ -19,12 +19,12 @@ export default function FloatingShapes() {
     const generateShapes = () => {
       const colors = [
         'bg-blue-500/10 dark:bg-blue-400/15',
-        'bg-yellow-500/10 dark:bg-yellow-400/15',
-        'bg-green-500/10 dark:bg-green-400/15',
+        'bg-yellow-500/10 dark:bg-yellow-400/15', 
+        'bg-green-500/10 dark:bg-green-400/15',   
         'bg-red-500/10 dark:bg-red-400/15',
         'bg-purple-500/10 dark:bg-purple-400/15',
         'bg-orange-500/10 dark:bg-orange-400/15',
-        'bg-pink-500/10 dark:bg-pink-400/15',
+        'bg-pink-500/10 dark:bg-pink-400/15', 
         'bg-cyan-500/10 dark:bg-cyan-400/15',
       ];
 
