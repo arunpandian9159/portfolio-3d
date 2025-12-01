@@ -5,7 +5,7 @@ import { ExternalLink, X, Download } from "lucide-react"
 import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-
+ 
 const projectsData = [
   {
     id: "vehicle-detection",
