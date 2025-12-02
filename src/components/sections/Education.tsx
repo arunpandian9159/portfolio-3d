@@ -5,7 +5,7 @@ import { GraduationCap, MapPin, Award } from 'lucide-react';
 import { educationItems } from '@/data/portfolio';
 import { EducationItem } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
-import AnimatedElement from '@/components/ui/AnimatedElement';
+import AnimatedElement from '@/components/ui/AnimatedElement'; 
 
 function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
   const isLast = index === educationItems.length - 1;
