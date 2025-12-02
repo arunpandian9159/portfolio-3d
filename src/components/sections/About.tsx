@@ -12,7 +12,7 @@ export default function About() {
           title="About Me"
           subtitle="Get to know me and my expertise"
         />
- 
+  
         <AnimatedElement>
           <div className="max-w-6xl mx-auto glass-card p-6 md:p-8 border border-white/20 dark:border-white/10">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
