@@ -6,7 +6,7 @@ import { skillCategories } from '@/data/portfolio';
 import { SkillCategory } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
 import AnimatedElement from '@/components/ui/AnimatedElement'; 
-
+ 
 // Icon mapping for skill categories
 const categoryIcons: Record<string, React.ReactNode> = {
   'Frontend': <Code2 className="w-5 h-5" />,
