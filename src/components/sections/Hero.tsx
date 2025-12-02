@@ -77,7 +77,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="mb-8"
+          className="mb-8" 
         >
           <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300">
             <span className="inline-block min-h-[1.4em] min-w-[280px]">
