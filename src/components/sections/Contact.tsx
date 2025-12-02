@@ -6,7 +6,7 @@ import { Send, Loader2, ArrowRight } from 'lucide-react';
 import { contactInfo } from '@/data/portfolio';
 import { ContactInfo, ContactFormData } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
-import AnimatedElement from '@/components/ui/AnimatedElement';
+import AnimatedElement from '@/components/ui/AnimatedElement'; 
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import Icon from '@/components/ui/Icon'; 
