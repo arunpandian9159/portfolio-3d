@@ -12,7 +12,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'Frontend': <Code2 className="w-5 h-5" />,
   'Backend': <Layers className="w-5 h-5" />,
   'Tools & Platforms': <Wrench className="w-5 h-5" />,
-  'Soft Skills': <Users className="w-5 h-5" />,
+  'Soft Skills': <Users className="w-5 h-5" />, 
 };
 
 function SkillCategoryCard({ category, index }: { category: SkillCategory; index: number }) {
