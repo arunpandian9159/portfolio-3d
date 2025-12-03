@@ -9,7 +9,7 @@ export default function About() {
     <section id="about" className="section-padding bg-white dark:bg-charcoal-800">
       <div className="container-custom">
         <SectionHeader
-          title="About Me"
+          title="About Me" 
           subtitle="Get to know me and my expertise"
         />
   
