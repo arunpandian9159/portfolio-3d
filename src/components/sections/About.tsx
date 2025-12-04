@@ -11,7 +11,7 @@ export default function About() {
         <SectionHeader
           title="About Me" 
           subtitle="Get to know me and my expertise"
-        />
+        /> 
   
         <AnimatedElement>
           <div className="max-w-6xl mx-auto glass-card p-6 md:p-8 border border-white/20 dark:border-white/10">
