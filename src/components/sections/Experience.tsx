@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { experienceItems } from '@/data/portfolio';
-import { ExperienceItem } from '@/types';
+import { ExperienceItem } from '@/types'; 
 import SectionHeader from '@/components/ui/SectionHeader'; 
 import AnimatedElement from '@/components/ui/AnimatedElement';
 import Icon from '@/components/ui/Icon';  
