@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Loader2, ArrowRight } from 'lucide-react';
+import { Send, Loader2, ArrowRight } from 'lucide-react'; 
 import { contactInfo } from '@/data/portfolio';
 import { ContactInfo, ContactFormData } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
