@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, MapPin, Award } from 'lucide-react';
 import { educationItems } from '@/data/portfolio';
-import { EducationItem } from '@/types';
+import { EducationItem } from '@/types'; 
 import SectionHeader from '@/components/ui/SectionHeader';
 import AnimatedElement from '@/components/ui/AnimatedElement'; 
 
