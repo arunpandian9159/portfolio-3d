@@ -71,7 +71,7 @@ export default function Hero() {
             Arunpandian
           </span>
         </motion.h1>
-
+ 
         {/* Typing Animation */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
