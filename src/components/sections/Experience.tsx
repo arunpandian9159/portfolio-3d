@@ -14,7 +14,6 @@ import {
   FloatingElement,
   StaggerContainer,
   StaggerItem,
-  BorderBeam,
   AnimatedCounter,
 } from '@/components/ui/ReactBits';
 
@@ -42,14 +41,7 @@ function ExperienceCard({ experience, index }: { experience: ExperienceItem; ind
           spotlightColor={`${colors.from}15`}
           spotlightSize={300}
         >
-          {/* Border beam effect */}
-          <BorderBeam
-            size={120}
-            duration={15}
-            colorFrom={colors.from}
-            colorTo={colors.to}
-            delay={index * 0.7}
-          />
+
 
           <div className="relative z-10">
             {/* Icon with gradient and animation */}

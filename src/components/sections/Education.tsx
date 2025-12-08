@@ -14,7 +14,6 @@ import {
   StaggerContainer,
   StaggerItem,
   BlurText,
-  BorderBeam,
 } from '@/components/ui/ReactBits';
 
 function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
@@ -30,13 +29,6 @@ function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
             className="relative z-10 flex-shrink-0 w-14 h-14 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl shadow-lg shadow-teal-500/25 flex items-center justify-center transition-all duration-300"
           >
             <GraduationCap className="w-7 h-7 text-white" />
-
-            {/* Pulse ring effect */}
-            <motion.div
-              className="absolute inset-0 rounded-xl bg-teal-500/30"
-              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
           </motion.div>
 
           {!isLast && (
@@ -65,15 +57,7 @@ function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
             spotlightColor="rgba(20, 184, 166, 0.1)"
             spotlightSize={300}
           >
-            {/* Border beam effect */}
-            <BorderBeam
-              size={120}
-              duration={15}
-              colorFrom="#14b8a6"
-              colorTo="#06b6d4"
-              delay={index * 0.8}
-              borderWidth={1}
-            />
+
 
             <div className="relative z-10">
               {/* Year and Grade badges */}

@@ -7,7 +7,6 @@ import Button from '@/components/ui/Button';
 import {
   SplitText,
   BlurText,
-  GradientText,
   MorphingText,
   MagneticButton,
   AuroraBackground,
@@ -35,7 +34,7 @@ export default function Hero() {
     return (
       <section id="hero" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-cream-50 via-gray-50 to-gray-100 dark:from-charcoal-700 dark:via-charcoal-800 dark:to-slate-900">
         <div className="text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-gray-100">
+          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white-100">
             ARUNPANDIAN C
           </h1>
         </div>
@@ -48,43 +47,31 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Aurora Background */}
+      {/* Aurora Background - simplified */}
       <AuroraBackground
         className="absolute inset-0 bg-gradient-to-br from-cream-50 via-gray-50 to-gray-100 dark:from-charcoal-700 dark:via-charcoal-800 dark:to-slate-900"
-        intensity="medium"
+        intensity="low"
       />
 
-      {/* Particles Overlay */}
+      {/* Particles Overlay - reduced count for performance */}
       <ParticlesBackground
         className="absolute inset-0"
-        particleCount={30}
-        particleColor="rgba(20, 184, 166, 0.4)"
+        particleCount={12}
+        particleColor="rgba(20, 184, 166, 0.3)"
       />
 
-      {/* Floating Decorative Elements */}
+      {/* Floating Decorative Elements - reduced from 4 to 2 */}
       <div className="absolute inset-0 pointer-events-none">
         <FloatingElement
-          className="absolute top-20 left-[10%] w-20 h-20 rounded-full bg-gradient-to-br from-teal-400/20 to-cyan-400/20 blur-xl"
-          duration={6}
-          distance={25}
-        />
-        <FloatingElement
-          className="absolute top-40 right-[15%] w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400/15 to-teal-400/15 blur-2xl"
+          className="absolute top-20 left-[10%] w-24 h-24 rounded-full bg-gradient-to-br from-teal-400/15 to-cyan-400/15 blur-2xl"
           duration={8}
-          distance={30}
-          delay={1}
-        />
-        <FloatingElement
-          className="absolute bottom-40 left-[20%] w-24 h-24 rounded-full bg-gradient-to-br from-teal-500/10 to-cyan-500/10 blur-xl"
-          duration={7}
           distance={20}
-          delay={2}
         />
         <FloatingElement
-          className="absolute bottom-20 right-[25%] w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 blur-lg"
-          duration={5}
+          className="absolute bottom-32 right-[20%] w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500/15 to-teal-500/15 blur-xl"
+          duration={10}
           distance={15}
-          delay={0.5}
+          delay={2}
         />
       </div>
 
@@ -120,10 +107,11 @@ export default function Hero() {
               delay={0.3}
               animateBy="chars"
             />
-            <GradientText
-              colors={['#14b8a6', '#0d9488', '#06b6d4', '#22d3ee', '#14b8a6']}
-              animationSpeed={4}
-              className="font-extrabold"
+            <span
+              className="font-extrabold bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-400 bg-clip-text text-transparent animate-gradient-x bg-[length:200%_auto]"
+              style={{
+                animation: 'gradient-shift 4s ease infinite',
+              }}
             >
               <SplitText
                 text="Arunpandian"
@@ -131,8 +119,9 @@ export default function Hero() {
                 staggerDuration={0.05}
                 animationFrom={{ opacity: 0, transform: 'translateY(40px) rotateX(-90deg)' }}
                 animationTo={{ opacity: 1, transform: 'translateY(0) rotateX(0deg)' }}
+                charClassName="bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-400 bg-clip-text text-transparent"
               />
-            </GradientText>
+            </span>
           </h1>
         </div>
 

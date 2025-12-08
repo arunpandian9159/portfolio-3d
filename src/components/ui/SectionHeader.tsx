@@ -59,17 +59,7 @@ export default function SectionHeader({ title, subtitle, className }: SectionHea
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.5, type: 'spring' }}
-          >
-            {/* Pulsing effect */}
-            <motion.div
-              className="absolute inset-0 rounded-full bg-teal-500"
-              animate={{
-                scale: [1, 1.8, 1],
-                opacity: [0.5, 0, 0.5],
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
+          />
           <motion.div
             className="h-px bg-gradient-to-l from-transparent to-teal-500"
             initial={{ width: 0 }}

@@ -19,7 +19,6 @@ import {
   StaggerContainer,
   StaggerItem,
   MagneticButton,
-  BorderBeam,
   BlurText,
   ParticlesBackground,
 } from '@/components/ui/ReactBits';
@@ -54,14 +53,7 @@ function ContactItem({ contact, index }: { contact: ContactInfo; index: number }
             spotlightColor={`${colors.from}12`}
             spotlightSize={250}
           >
-            {/* Border beam */}
-            <BorderBeam
-              size={100}
-              duration={12}
-              colorFrom={colors.from}
-              colorTo={colors.to}
-              delay={index * 0.5}
-            />
+
 
             <motion.div
               className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300"
@@ -263,12 +255,7 @@ export default function Contact() {
                 spotlightColor="rgba(20, 184, 166, 0.08)"
                 spotlightSize={400}
               >
-                <BorderBeam
-                  size={200}
-                  duration={20}
-                  colorFrom="#14b8a6"
-                  colorTo="#06b6d4"
-                />
+
 
                 <div className="relative z-10">
                   <div className="mb-6 flex items-center gap-3">

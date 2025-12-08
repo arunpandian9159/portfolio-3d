@@ -9,6 +9,7 @@ import { motion, useMotionValue, useSpring, useTransform, useInView, AnimatePres
 interface SplitTextProps {
     text: string;
     className?: string;
+    charClassName?: string;
     delay?: number;
     animationFrom?: { opacity: number; transform: string };
     animationTo?: { opacity: number; transform: string };
@@ -21,6 +22,7 @@ interface SplitTextProps {
 export function SplitText({
     text,
     className = '',
+    charClassName = '',
     delay = 0,
     animationFrom = { opacity: 0, transform: 'translateY(40px)' },
     animationTo = { opacity: 1, transform: 'translateY(0)' },
@@ -63,7 +65,7 @@ export function SplitText({
             {elements.map((el, index) => (
                 <motion.span
                     key={el.key}
-                    className="inline-block"
+                    className={`inline-block ${charClassName}`}
                     initial={animationFrom}
                     animate={hasAnimated ? animationTo : animationFrom}
                     transition={{
@@ -347,23 +349,29 @@ interface TiltedCardProps {
 export function TiltedCard({
     children,
     className = '',
-    tiltStrength = 15,
-    glareEnabled = true,
+    tiltStrength = 10, // Reduced default strength
+    glareEnabled = false, // Disabled by default for performance
     perspective = 1000,
 }: TiltedCardProps) {
     const ref = useRef<HTMLDivElement>(null);
     const [isHovered, setIsHovered] = useState(false);
+    const lastMoveTime = useRef(0);
 
     const rotateX = useMotionValue(0);
     const rotateY = useMotionValue(0);
     const glareX = useMotionValue(50);
     const glareY = useMotionValue(50);
 
-    const springRotateX = useSpring(rotateX, { stiffness: 200, damping: 25 });
-    const springRotateY = useSpring(rotateY, { stiffness: 200, damping: 25 });
+    const springRotateX = useSpring(rotateX, { stiffness: 150, damping: 20 });
+    const springRotateY = useSpring(rotateY, { stiffness: 150, damping: 20 });
 
     const handleMouseMove = useCallback(
         (e: React.MouseEvent) => {
+            // Throttle to ~60fps for performance
+            const now = Date.now();
+            if (now - lastMoveTime.current < 16) return;
+            lastMoveTime.current = now;
+
             if (!ref.current) return;
             const rect = ref.current.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width;
@@ -371,10 +379,12 @@ export function TiltedCard({
 
             rotateX.set((y - 0.5) * -tiltStrength);
             rotateY.set((x - 0.5) * tiltStrength);
-            glareX.set(x * 100);
-            glareY.set(y * 100);
+            if (glareEnabled) {
+                glareX.set(x * 100);
+                glareY.set(y * 100);
+            }
         },
-        [tiltStrength, rotateX, rotateY, glareX, glareY]
+        [tiltStrength, rotateX, rotateY, glareX, glareY, glareEnabled]
     );
 
     const handleMouseLeave = useCallback(() => {
@@ -392,6 +402,7 @@ export function TiltedCard({
                 transformStyle: 'preserve-3d',
                 rotateX: springRotateX,
                 rotateY: springRotateY,
+                willChange: 'transform',
             }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
@@ -399,10 +410,10 @@ export function TiltedCard({
         >
             {children}
             {glareEnabled && isHovered && (
-                <motion.div
+                <div
                     className="absolute inset-0 pointer-events-none rounded-inherit"
                     style={{
-                        background: `radial-gradient(circle at ${glareX.get()}% ${glareY.get()}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
+                        background: `radial-gradient(circle at ${glareX.get()}% ${glareY.get()}%, rgba(255,255,255,0.1) 0%, transparent 50%)`,
                         borderRadius: 'inherit',
                     }}
                 />
@@ -424,14 +435,20 @@ interface SpotlightCardProps {
 export function SpotlightCard({
     children,
     className = '',
-    spotlightColor = 'rgba(20, 184, 166, 0.15)',
-    spotlightSize = 300,
+    spotlightColor = 'rgba(20, 184, 166, 0.1)',
+    spotlightSize = 250,
 }: SpotlightCardProps) {
     const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
+    const lastMoveTime = useRef(0);
 
     const handleMouseMove = useCallback((e: React.MouseEvent) => {
+        // Throttle to ~60fps
+        const now = Date.now();
+        if (now - lastMoveTime.current < 16) return;
+        lastMoveTime.current = now;
+
         if (!ref.current) return;
         const rect = ref.current.getBoundingClientRect();
         setPosition({
@@ -444,18 +461,17 @@ export function SpotlightCard({
         <div
             ref={ref}
             className={`relative overflow-hidden ${className}`}
+            style={{ contain: 'paint' }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             {isHovered && (
-                <motion.div
-                    className="absolute inset-0 pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                <div
+                    className="absolute inset-0 pointer-events-none transition-opacity duration-200"
                     style={{
                         background: `radial-gradient(${spotlightSize}px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 100%)`,
+                        opacity: 1,
                     }}
                 />
             )}
@@ -478,42 +494,35 @@ export function AuroraBackground({
     children,
     intensity = 'medium',
 }: AuroraBackgroundProps) {
-    const opacityMap = { low: 0.2, medium: 0.4, high: 0.6 };
+    const opacityMap = { low: 0.15, medium: 0.25, high: 0.35 };
     const opacity = opacityMap[intensity];
 
+    // Simplified aurora - uses CSS animation instead of framer-motion for better performance
     return (
         <div className={`relative overflow-hidden ${className}`}>
             <div className="absolute inset-0 overflow-hidden">
-                <motion.div
-                    className="absolute -inset-[100px]"
-                    animate={{
-                        rotate: [0, 360],
-                    }}
-                    transition={{
-                        duration: 60,
-                        repeat: Infinity,
-                        ease: 'linear',
+                <div
+                    className="absolute -inset-[50px] animate-slow-spin"
+                    style={{
+                        willChange: 'transform',
+                        contain: 'paint',
                     }}
                 >
                     <div
-                        className="absolute top-1/4 left-1/4 w-1/2 h-1/2 rounded-full blur-3xl"
+                        className="absolute top-1/4 left-1/4 w-1/2 h-1/2 rounded-full"
                         style={{
                             background: `radial-gradient(circle, rgba(20, 184, 166, ${opacity}) 0%, transparent 70%)`,
+                            filter: 'blur(40px)',
                         }}
                     />
                     <div
-                        className="absolute top-1/3 right-1/4 w-1/3 h-1/3 rounded-full blur-3xl"
+                        className="absolute top-1/3 right-1/4 w-1/3 h-1/3 rounded-full"
                         style={{
                             background: `radial-gradient(circle, rgba(6, 182, 212, ${opacity}) 0%, transparent 70%)`,
+                            filter: 'blur(40px)',
                         }}
                     />
-                    <div
-                        className="absolute bottom-1/4 left-1/3 w-2/5 h-2/5 rounded-full blur-3xl"
-                        style={{
-                            background: `radial-gradient(circle, rgba(45, 166, 178, ${opacity}) 0%, transparent 70%)`,
-                        }}
-                    />
-                </motion.div>
+                </div>
             </div>
             <div className="relative z-10">{children}</div>
         </div>
@@ -542,43 +551,39 @@ interface ParticlesBackgroundProps {
 export function ParticlesBackground({
     className = '',
     children,
-    particleCount = 50,
-    particleColor = 'rgba(20, 184, 166, 0.5)',
+    particleCount = 15, // Reduced default for performance
+    particleColor = 'rgba(20, 184, 166, 0.4)',
 }: ParticlesBackgroundProps) {
+    // Limit max particles for performance
+    const actualCount = Math.min(particleCount, 20);
+
     const particles = useMemo<Particle[]>(() => {
-        return Array.from({ length: particleCount }, (_, i) => ({
+        return Array.from({ length: actualCount }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
-            size: Math.random() * 4 + 1,
-            duration: Math.random() * 20 + 10,
-            delay: Math.random() * 5,
+            size: Math.random() * 3 + 1,
+            duration: Math.random() * 15 + 12, // Slower for less CPU usage
+            delay: Math.random() * 3,
         }));
-    }, [particleCount]);
+    }, [actualCount]);
 
     return (
-        <div className={`relative overflow-hidden ${className}`}>
+        <div className={`relative overflow-hidden ${className}`} style={{ contain: 'paint' }}>
             <div className="absolute inset-0">
                 {particles.map((particle) => (
-                    <motion.div
+                    <div
                         key={particle.id}
-                        className="absolute rounded-full"
+                        className="absolute rounded-full animate-float-particle"
                         style={{
                             left: `${particle.x}%`,
                             top: `${particle.y}%`,
                             width: particle.size,
                             height: particle.size,
                             background: particleColor,
-                        }}
-                        animate={{
-                            y: [0, -30, 0],
-                            opacity: [0.2, 0.8, 0.2],
-                        }}
-                        transition={{
-                            duration: particle.duration,
-                            repeat: Infinity,
-                            delay: particle.delay,
-                            ease: 'easeInOut',
+                            animationDuration: `${particle.duration}s`,
+                            animationDelay: `${particle.delay}s`,
+                            willChange: 'transform, opacity',
                         }}
                     />
                 ))}
@@ -754,21 +759,19 @@ export function FloatingElement({
     distance = 15,
     delay = 0,
 }: FloatingElementProps) {
+    // Use CSS animation instead of framer-motion for better performance
     return (
-        <motion.div
-            className={className}
-            animate={{
-                y: [-distance / 2, distance / 2, -distance / 2],
-            }}
-            transition={{
-                duration,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay,
-            }}
+        <div
+            className={`${className} animate-float-gentle`}
+            style={{
+                animationDuration: `${duration}s`,
+                animationDelay: `${delay}s`,
+                '--float-distance': `${distance}px`,
+                willChange: 'transform',
+            } as React.CSSProperties}
         >
             {children}
-        </motion.div>
+        </div>
     );
 }
 

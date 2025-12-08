@@ -15,7 +15,6 @@ import {
   FloatingElement,
   StaggerContainer,
   StaggerItem,
-  BorderBeam,
   BlurText,
   MagneticButton,
 } from "@/components/ui/ReactBits"
@@ -69,14 +68,7 @@ function ProjectCard({ project, index, onClick }: ProjectCardProps) {
             whileHover={{ y: -5 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Border beam effect */}
-            <BorderBeam
-              size={150}
-              duration={12}
-              colorFrom={project.color.from}
-              colorTo={project.color.to}
-              delay={index * 0.5}
-            />
+
 
             {/* Featured badge */}
             {project.featured && (

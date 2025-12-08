@@ -13,7 +13,6 @@ import {
   FloatingElement,
   StaggerContainer,
   StaggerItem,
-  BorderBeam,
 } from '@/components/ui/ReactBits';
 
 // Icon mapping for skill categories
@@ -47,14 +46,7 @@ function SkillCategoryCard({ category, index }: { category: SkillCategory; index
           spotlightColor="rgba(20, 184, 166, 0.12)"
           spotlightSize={250}
         >
-          {/* Animated border beam */}
-          <BorderBeam
-            size={150}
-            duration={12}
-            colorFrom={colors.from}
-            colorTo={colors.to}
-            delay={index * 0.5}
-          />
+
 
           <div className="relative z-10">
             {/* Icon with gradient background */}
@@ -78,35 +70,22 @@ function SkillCategoryCard({ category, index }: { category: SkillCategory; index
               </h3>
             </motion.div>
 
-            {/* Skills tags with stagger animation */}
+            {/* Skills tags with CSS transitions instead of framer-motion */}
             <div className="flex flex-wrap gap-2">
               {category.skills.map((skill, skillIndex) => (
-                <motion.span
+                <span
                   key={skill}
-                  initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.4,
-                    delay: skillIndex * 0.08,
-                    ease: 'easeOut',
-                  }}
-                  whileHover={{
-                    scale: 1.1,
-                    y: -3,
-                    boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)',
-                  }}
-                  className="px-3 py-1.5 text-sm font-medium rounded-lg border cursor-default transition-all duration-300"
+                  className="px-3 py-1.5 text-sm font-medium rounded-lg border cursor-default transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal-500/20"
                   style={{
                     background: `linear-gradient(135deg, ${colors.from}10, ${colors.to}10)`,
                     borderColor: `${colors.from}30`,
-                    color: 'inherit',
+                    animationDelay: `${skillIndex * 50}ms`,
                   }}
                 >
                   <span className="text-teal-700 dark:text-teal-300">
                     {skill}
                   </span>
-                </motion.span>
+                </span>
               ))}
             </div>
           </div>
