@@ -51,18 +51,6 @@ export default function Footer() {
                   className="group relative p-4 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 transition-all duration-300"
                   aria-label="Scroll to top"
                 >
-                  {/* Animated ring */}
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl"
-                    animate={{
-                      boxShadow: [
-                        '0 0 0 0 rgba(20, 184, 166, 0.4)',
-                        '0 0 0 12px rgba(20, 184, 166, 0)',
-                        '0 0 0 0 rgba(20, 184, 166, 0)',
-                      ],
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
                   <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
                 </motion.button>
               </MagneticButton>
