@@ -116,7 +116,7 @@ function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
 
 export default function Education() {
   return (
-    <section id="education" className="section-padding bg-gradient-to-b from-cream-50 to-white dark:from-charcoal-700 dark:to-charcoal-800 relative overflow-hidden">
+    <section id="education" className="section-padding !pb-1 md:!pb-1 bg-gradient-to-b from-cream-50 to-white dark:from-charcoal-700 dark:to-charcoal-800 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <FloatingElement

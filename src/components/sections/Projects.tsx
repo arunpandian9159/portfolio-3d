@@ -40,6 +40,26 @@ const projectsData = [
     color: { from: "#8b5cf6", to: "#6366f1" },
     featured: true,
   },
+  {
+    id: "internbyte",
+    title: "Internship Management System",
+    shortTitle: "Internbyte",
+    description:
+      "Internbyte is a comprehensive internship management platform designed to streamline student onboarding, course management, and academic tracking.",
+    tech: ["Next.js", "TypeScript", "SQL"],
+    teamSize: 4,
+    color: { from: "#3b82f6", to: "#2563eb" },
+  },
+  {
+    id: "travel-crm",
+    title: "Travel Industry CRM Platform",
+    shortTitle: "Travel CRM",
+    description:
+      "A comprehensive Customer Relationship Management system designed specifically for the travel and tourism industry.",
+    tech: ["TypeScript", "React", "Tailwind CSS"],
+    teamSize: 5,
+    color: { from: "#f59e0b", to: "#d97706" },
+  },
 ]
 
 interface ProjectCardProps {
@@ -160,7 +180,7 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projects" className="section-padding bg-white dark:bg-charcoal-800 relative overflow-hidden">
+      <section id="projects" className="section-padding !pt-1 md:!pt-1 bg-white dark:bg-charcoal-800 relative overflow-hidden">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none">
           <FloatingElement
@@ -471,6 +491,166 @@ export default function Projects() {
                         </div>
                       </div>
                     </RevealOnScroll>
+                  </motion.div>
+                )}
+
+                {selectedProject === "internbyte" && (
+                  <motion.div
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div>
+                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        <BlurText text="Internship Management System (Internbyte)" delay={0} animateBy="words" />
+                      </h4>
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Internbyte is a comprehensive internship management platform designed to streamline student
+                        onboarding, course management, and academic tracking. It features secure authentication, real-time
+                        database integration, and automated certificate generation. The system supports attendance tracking,
+                        quizzes, and instructor management with a responsive, mobile-first interface. This project simplifies
+                        administrative tasks for colleges and students, enhancing efficiency in internship programs.
+                      </p>
+                      <div className="flex flex-wrap gap-4 mb-4">
+                        <Badge variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700">
+                          Role: Frontend Developer
+                        </Badge>
+                        <a
+                          href="https://internbyte.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium text-sm transition-colors"
+                        >
+                          Visit Live Site <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <RevealOnScroll direction="up" delay={0.2}>
+                        <div>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Technical Stack</h5>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {["Next.js", "TypeScript", "SQL", "React", "Tailwind CSS"].map((tech, i) => (
+                              <motion.span
+                                key={tech}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3 + i * 0.1 }}
+                              >
+                                <Badge variant="secondary" className="bg-blue-500/20 text-blue-700 dark:text-blue-300">
+                                  {tech}
+                                </Badge>
+                              </motion.span>
+                            ))}
+                          </div>
+                        </div>
+                      </RevealOnScroll>
+
+                      <RevealOnScroll direction="up" delay={0.3}>
+                        <div>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Key Features</h5>
+                          <ul className="text-gray-600 dark:text-gray-300 space-y-2">
+                            {[
+                              "Student onboarding & tracking",
+                              "Course & instructor management",
+                              "Automated certificate generation",
+                              "Secure authentication",
+                              "Real-time database integration",
+                              "Responsive mobile-first interface",
+                            ].map((feature, i) => (
+                              <motion.li
+                                key={feature}
+                                className="flex items-start gap-2"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4 + i * 0.1 }}
+                              >
+                                <span className="text-blue-500 mt-1">•</span>
+                                {feature}
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </div>
+                      </RevealOnScroll>
+                    </div>
+                  </motion.div>
+                )}
+
+                {selectedProject === "travel-crm" && (
+                  <motion.div
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div>
+                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        <BlurText text="Travel Industry CRM Platform" delay={0} animateBy="words" />
+                      </h4>
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        A comprehensive Customer Relationship Management system designed specifically for the travel
+                        and tourism industry. It streamlines Quotes management, Leads management, Follow ups, invoice generator,
+                        and travel itinerary tracking through an integrated platform. The system enables travel agencies and
+                        operators to efficiently manage client relationships, automate workflows, and enhance customer
+                        engagement while maintaining centralized access to booking history, preferences, and communication logs.
+                      </p>
+                      <div className="flex gap-2 mb-4">
+                        <Badge variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700">
+                          Role: Frontend Developer
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <RevealOnScroll direction="up" delay={0.2}>
+                        <div>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Technical Stack</h5>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {["TypeScript", "React", "Modern Web Tech", "Redux", "Tailwind CSS"].map((tech, i) => (
+                              <motion.span
+                                key={tech}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3 + i * 0.1 }}
+                              >
+                                <Badge variant="secondary" className="bg-orange-500/20 text-orange-700 dark:text-orange-300">
+                                  {tech}
+                                </Badge>
+                              </motion.span>
+                            ))}
+                          </div>
+                        </div>
+                      </RevealOnScroll>
+
+                      <RevealOnScroll direction="up" delay={0.3}>
+                        <div>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Key Features</h5>
+                          <ul className="text-gray-600 dark:text-gray-300 space-y-2">
+                            {[
+                              "Quotes & Leads management",
+                              "Invoice generator",
+                              "Travel itinerary tracking",
+                              "Automated workflows",
+                              "Centralized booking history",
+                              "Customer engagement tools",
+                            ].map((feature, i) => (
+                              <motion.li
+                                key={feature}
+                                className="flex items-start gap-2"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4 + i * 0.1 }}
+                              >
+                                <span className="text-orange-500 mt-1">•</span>
+                                {feature}
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </div>
+                      </RevealOnScroll>
+                    </div>
                   </motion.div>
                 )}
               </div>

@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Font is already loaded via next/font/google in layout.tsx - no need for @import */
 
