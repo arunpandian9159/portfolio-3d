@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 /* Font is already loaded via next/font/google in layout.tsx - no need for @import */
 
@@ -219,18 +217,23 @@ body {
   }
 }
 
-/* Focus styles */
+/* Focus styles - now defined as a regular class without @apply */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-teal-400 dark:focus:ring-offset-gray-800;
+  outline: none;
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-teal-500, #14b8a6), 0 0 0 4px rgba(255, 255, 255, 0.8);
 }
 
 /* Button styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 focus-ring shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5;
+  @apply bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
 }
 
 .btn-outline {
-  @apply border-2 border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 focus-ring hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-0.5;
+  @apply border-2 border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
 }
 
 /* Card styles */
@@ -301,7 +304,7 @@ body {
 
 /* Form styles */
 .form-input {
-  @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus-ring transition-colors duration-200;
+  @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
 }
 
 .form-label {
@@ -310,10 +313,9 @@ body {
 
 /* Floating shapes */
 .floating-shape {
-  @apply absolute opacity-20 animate-float;
-  animation-duration: 6s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+  position: absolute;
+  opacity: 0.2;
+  animation: float 6s ease-in-out infinite;
 }
 
 /* Timeline styles */
