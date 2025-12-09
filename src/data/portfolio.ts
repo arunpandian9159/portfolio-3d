@@ -106,7 +106,8 @@ export const experienceItems: ExperienceItem[] = [
     items: [
       'Python (Certiport)',
       'ICT Learnathon 2023',
-      'Skill-a-thon 2024'
+      'Skill-a-thon 2024',
+      'Fullstack Capgemini'
     ]
   },
   {

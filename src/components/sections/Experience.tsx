@@ -1,11 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { experienceItems } from '@/data/portfolio';
 import { ExperienceItem } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Icon from '@/components/ui/Icon';
-import { CheckCircle2, Sparkles } from 'lucide-react';
+import { CheckCircle2, Sparkles, X, ExternalLink } from 'lucide-react';
 import {
   RevealOnScroll,
   TiltedCard,
@@ -15,6 +16,7 @@ import {
   StaggerItem,
   AnimatedCounter,
 } from '@/components/ui/ReactBits';
+import Image from 'next/image';
 
 // Color mapping for each experience type
 const experienceColors: Record<string, { from: string; to: string }> = {
@@ -24,8 +26,105 @@ const experienceColors: Record<string, { from: string; to: string }> = {
   'Activities': { from: '#ec4899', to: '#f43f5e' },
 };
 
-function ExperienceCard({ experience, index }: { experience: ExperienceItem; index: number }) {
+// Certificate image mapping
+const certificateImages: Record<string, string> = {
+  'Python (Certiport)': '/python-certiport.png',
+  'Skill-a-thon 2024': '/Skill la thon.png',
+  'ICT Learnathon 2023': '/Learnathon.png',
+  'Fullstack Capgemini': '/Capgemini.png',
+};
+
+// Modal Component for viewing certificates
+function CertificateModal({
+  isOpen,
+  onClose,
+  imageSrc,
+  title
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  imageSrc: string;
+  title: string;
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className="relative max-w-4xl w-full max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {title}
+              </h3>
+              <button
+                onClick={onClose}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+              </button>
+            </div>
+
+            {/* Image Container */}
+            <div className="relative w-full h-[70vh] overflow-auto p-4">
+              <div className="relative w-full h-full flex items-center justify-center">
+                <Image
+                  src={imageSrc}
+                  alt={title}
+                  width={1200}
+                  height={800}
+                  className="object-contain max-w-full max-h-full rounded-lg shadow-lg"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-center gap-4 p-4 border-t border-gray-200 dark:border-gray-700">
+              <a
+                href={imageSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open Full Size
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function ExperienceCard({
+  experience,
+  index,
+  onItemClick,
+  onCardClick
+}: {
+  experience: ExperienceItem;
+  index: number;
+  onItemClick: (item: string) => void;
+  onCardClick: (title: string) => void;
+}) {
   const colors = experienceColors[experience.title] || { from: '#14b8a6', to: '#06b6d4' };
+  const isClickable = experience.title === 'Internship';
 
   return (
     <StaggerItem>
@@ -36,13 +135,14 @@ function ExperienceCard({ experience, index }: { experience: ExperienceItem; ind
         className="h-full"
       >
         <SpotlightCard
-          className="relative glass-card p-6 md:p-8 text-center h-full group border border-white/20 dark:border-white/10 hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden"
+          className={`relative glass-card p-6 md:p-8 text-center h-full group border border-white/20 dark:border-white/10 hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden ${isClickable ? 'cursor-pointer' : ''}`}
           spotlightColor={`${colors.from}15`}
           spotlightSize={300}
         >
-
-
-          <div className="relative z-10">
+          <div
+            className="relative z-10"
+            onClick={isClickable ? () => onCardClick(experience.title) : undefined}
+          >
             {/* Icon with gradient and animation */}
             <motion.div
               className="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300"
@@ -74,37 +174,50 @@ function ExperienceCard({ experience, index }: { experience: ExperienceItem; ind
               >
                 {experience.title}
               </span>
+              {isClickable && (
+                <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">(Click to view)</span>
+              )}
             </h3>
 
             {/* Description or List */}
             {experience.items ? (
               <ul className="space-y-3 text-gray-600 dark:text-gray-400 text-sm md:text-base">
-                {experience.items.map((item, itemIndex) => (
-                  <motion.li
-                    key={item}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.4,
-                      delay: itemIndex * 0.15
-                    }}
-                    className="flex items-center justify-center gap-2 group/item"
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.3 }}
+                {experience.items.map((item, itemIndex) => {
+                  const hasCertificate = certificateImages[item] !== undefined;
+                  return (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.4,
+                        delay: itemIndex * 0.15
+                      }}
+                      className={`flex items-center justify-center gap-2 group/item ${hasCertificate ? 'cursor-pointer hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-lg py-1 px-2 -mx-2 transition-colors' : ''}`}
+                      onClick={hasCertificate ? (e) => {
+                        e.stopPropagation();
+                        onItemClick(item);
+                      } : undefined}
                     >
-                      <CheckCircle2
-                        className="w-5 h-5 flex-shrink-0"
-                        style={{ color: colors.from }}
-                      />
-                    </motion.div>
-                    <span className="group-hover/item:text-gray-900 dark:group-hover/item:text-gray-200 transition-colors">
-                      {item}
-                    </span>
-                  </motion.li>
-                ))}
+                      <motion.div
+                        whileHover={{ scale: 1.2, rotate: 360 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <CheckCircle2
+                          className="w-5 h-5 flex-shrink-0"
+                          style={{ color: colors.from }}
+                        />
+                      </motion.div>
+                      <span className={`group-hover/item:text-gray-900 dark:group-hover/item:text-gray-200 transition-colors ${hasCertificate ? 'underline decoration-dotted underline-offset-2' : ''}`}>
+                        {item}
+                      </span>
+                      {hasCertificate && (
+                        <ExternalLink className="w-3 h-3 opacity-0 group-hover/item:opacity-100 transition-opacity" style={{ color: colors.from }} />
+                      )}
+                    </motion.li>
+                  );
+                })}
               </ul>
             ) : (
               <motion.p
@@ -139,8 +252,43 @@ function ExperienceCard({ experience, index }: { experience: ExperienceItem; ind
 }
 
 export default function Experience() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedTitle, setSelectedTitle] = useState('');
+
+  const handleItemClick = (item: string) => {
+    const imageSrc = certificateImages[item];
+    if (imageSrc) {
+      setSelectedImage(imageSrc);
+      setSelectedTitle(item);
+      setModalOpen(true);
+    }
+  };
+
+  const handleCardClick = (title: string) => {
+    if (title === 'Internship') {
+      setSelectedImage('/tripxplo intern certificate.png');
+      setSelectedTitle('Tripxplo Internship Certificate');
+      setModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedImage('');
+    setSelectedTitle('');
+  };
+
   return (
     <section id="experience" className="section-padding bg-cream-50 dark:bg-charcoal-700 relative overflow-hidden">
+      {/* Certificate Modal */}
+      <CertificateModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        imageSrc={selectedImage}
+        title={selectedTitle}
+      />
+
       {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <FloatingElement
@@ -177,6 +325,8 @@ export default function Experience() {
               key={experience.title}
               experience={experience}
               index={index}
+              onItemClick={handleItemClick}
+              onCardClick={handleCardClick}
             />
           ))}
         </StaggerContainer>
@@ -193,7 +343,7 @@ export default function Experience() {
             >
               {[
                 { value: 1, suffix: '+', label: 'Internship' },
-                { value: 3, suffix: '+', label: 'Certifications' },
+                { value: 4, suffix: '+', label: 'Certifications' },
                 { value: 2, suffix: '+', label: 'Projects' },
                 { value: 5, suffix: '+', label: 'Activities' },
               ].map((stat, index) => (
