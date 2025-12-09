@@ -97,7 +97,11 @@ export const experienceItems: ExperienceItem[] = [
   {
     iconName: 'Briefcase',
     title: 'Internship',
-    description: 'Frontend development intern at Tripmilestone Tours Pvt Ltd'
+    description: '',
+    items: [
+      'VEI Technologies Pvt Ltd (2 weeks)',
+      'Tripmilestone Tours Pvt Ltd (6 months)'
+    ]
   },
   {
     iconName: 'Award',
@@ -113,7 +117,11 @@ export const experienceItems: ExperienceItem[] = [
   {
     iconName: 'Target',
     title: 'Achievements',
-    description: 'Typewriting-Distinction (Senior)'
+    description: '',
+    items: [
+      'Typewriting-Distinction (Senior)',
+      'Published IEEE Paper (ICDSBS 2025)'
+    ]
   },
   {
     iconName: 'Star',

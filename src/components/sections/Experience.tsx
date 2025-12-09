@@ -26,12 +26,22 @@ const experienceColors: Record<string, { from: string; to: string }> = {
   'Activities': { from: '#ec4899', to: '#f43f5e' },
 };
 
-// Certificate image mapping
-const certificateImages: Record<string, string> = {
-  'Python (Certiport)': '/python-certiport.png',
-  'Skill-a-thon 2024': '/Skill la thon.png',
-  'ICT Learnathon 2023': '/Learnathon.png',
-  'Fullstack Capgemini': '/Capgemini.png',
+// Certificate and Internship image mapping
+const certificateImages: Record<string, { image: string; description?: string }> = {
+  // Internships
+  'VEI Technologies Pvt Ltd (2 weeks)': {
+    image: '/VEI technologies.jpg',
+    description: 'Full Stack Development Intern - Worked on web development projects using modern technologies.'
+  },
+  'Tripmilestone Tours Pvt Ltd (6 months)': {
+    image: '/tripxplo intern certificate.png',
+    description: 'Frontend Development Intern - Developed and maintained responsive UI components for tripxplo.com using React and Tailwind CSS. Collaborated with senior developers on coding and debugging tasks.'
+  },
+  // Certificates
+  'Python (Certiport)': { image: '/python-certiport.png' },
+  'Skill-a-thon 2024': { image: '/Skill la thon.png' },
+  'ICT Learnathon 2023': { image: '/Learnathon.png' },
+  'Fullstack Capgemini': { image: '/Capgemini.png' },
 };
 
 // Modal Component for viewing certificates
@@ -39,12 +49,14 @@ function CertificateModal({
   isOpen,
   onClose,
   imageSrc,
-  title
+  title,
+  description
 }: {
   isOpen: boolean;
   onClose: () => void;
   imageSrc: string;
   title: string;
+  description?: string;
 }) {
   if (!isOpen) return null;
 
@@ -68,19 +80,26 @@ function CertificateModal({
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {title}
-              </h3>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {title}
+                </h3>
+                {description && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 max-w-xl">
+                    {description}
+                  </p>
+                )}
+              </div>
               <button
                 onClick={onClose}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
               >
                 <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
               </button>
             </div>
 
             {/* Image Container */}
-            <div className="relative w-full h-[70vh] overflow-auto p-4">
+            <div className="relative w-full h-[65vh] overflow-auto p-4">
               <div className="relative w-full h-full flex items-center justify-center">
                 <Image
                   src={imageSrc}
@@ -115,16 +134,13 @@ function CertificateModal({
 function ExperienceCard({
   experience,
   index,
-  onItemClick,
-  onCardClick
+  onItemClick
 }: {
   experience: ExperienceItem;
   index: number;
   onItemClick: (item: string) => void;
-  onCardClick: (title: string) => void;
 }) {
   const colors = experienceColors[experience.title] || { from: '#14b8a6', to: '#06b6d4' };
-  const isClickable = experience.title === 'Internship';
 
   return (
     <StaggerItem>
@@ -135,14 +151,11 @@ function ExperienceCard({
         className="h-full"
       >
         <SpotlightCard
-          className={`relative glass-card p-6 md:p-8 text-center h-full group border border-white/20 dark:border-white/10 hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden ${isClickable ? 'cursor-pointer' : ''}`}
+          className="relative glass-card p-6 md:p-8 text-center h-full group border border-white/20 dark:border-white/10 hover:shadow-xl transition-all duration-500 rounded-2xl overflow-hidden"
           spotlightColor={`${colors.from}15`}
           spotlightSize={300}
         >
-          <div
-            className="relative z-10"
-            onClick={isClickable ? () => onCardClick(experience.title) : undefined}
-          >
+          <div className="relative z-10">
             {/* Icon with gradient and animation */}
             <motion.div
               className="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300"
@@ -174,9 +187,6 @@ function ExperienceCard({
               >
                 {experience.title}
               </span>
-              {isClickable && (
-                <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">(Click to view)</span>
-              )}
             </h3>
 
             {/* Description or List */}
@@ -255,20 +265,14 @@ export default function Experience() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const [selectedTitle, setSelectedTitle] = useState('');
+  const [selectedDescription, setSelectedDescription] = useState('');
 
   const handleItemClick = (item: string) => {
-    const imageSrc = certificateImages[item];
-    if (imageSrc) {
-      setSelectedImage(imageSrc);
+    const certData = certificateImages[item];
+    if (certData) {
+      setSelectedImage(certData.image);
       setSelectedTitle(item);
-      setModalOpen(true);
-    }
-  };
-
-  const handleCardClick = (title: string) => {
-    if (title === 'Internship') {
-      setSelectedImage('/tripxplo intern certificate.png');
-      setSelectedTitle('Tripxplo Internship Certificate');
+      setSelectedDescription(certData.description || '');
       setModalOpen(true);
     }
   };
@@ -277,6 +281,7 @@ export default function Experience() {
     setModalOpen(false);
     setSelectedImage('');
     setSelectedTitle('');
+    setSelectedDescription('');
   };
 
   return (
@@ -287,6 +292,7 @@ export default function Experience() {
         onClose={closeModal}
         imageSrc={selectedImage}
         title={selectedTitle}
+        description={selectedDescription}
       />
 
       {/* Background decorations */}
@@ -326,7 +332,6 @@ export default function Experience() {
               experience={experience}
               index={index}
               onItemClick={handleItemClick}
-              onCardClick={handleCardClick}
             />
           ))}
         </StaggerContainer>
@@ -342,7 +347,7 @@ export default function Experience() {
               transition={{ delay: 0.3 }}
             >
               {[
-                { value: 1, suffix: '+', label: 'Internship' },
+                { value: 2, suffix: '+', label: 'Internships' },
                 { value: 4, suffix: '+', label: 'Certifications' },
                 { value: 2, suffix: '+', label: 'Projects' },
                 { value: 5, suffix: '+', label: 'Activities' },
