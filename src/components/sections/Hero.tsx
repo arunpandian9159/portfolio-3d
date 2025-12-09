@@ -9,9 +9,7 @@ import {
   BlurText,
   MorphingText,
   MagneticButton,
-  AuroraBackground,
-  ParticlesBackground,
-  FloatingElement,
+  Orb,
   RevealOnScroll,
   ShinyText,
 } from '@/components/ui/ReactBits';
@@ -47,35 +45,21 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Aurora Background - simplified */}
-      <AuroraBackground
-        className="absolute inset-0 bg-gradient-to-br from-cream-50 via-gray-50 to-gray-100 dark:from-charcoal-700 dark:via-charcoal-800 dark:to-slate-900"
-        intensity="low"
-      />
-
-      {/* Particles Overlay - reduced count for performance */}
-      <ParticlesBackground
-        className="absolute inset-0"
-        particleCount={12}
-        particleColor="rgba(20, 184, 166, 0.3)"
-      />
-
-      {/* Floating Decorative Elements - reduced from 4 to 2 */}
-      <div className="absolute inset-0 pointer-events-none">
-        <FloatingElement
-          className="absolute top-20 left-[10%] w-24 h-24 rounded-full bg-gradient-to-br from-teal-400/15 to-cyan-400/15 blur-2xl"
-          duration={8}
-          distance={20}
-        />
-        <FloatingElement
-          className="absolute bottom-32 right-[20%] w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500/15 to-teal-500/15 blur-xl"
-          duration={10}
-          distance={15}
-          delay={2}
-        />
+      {/* Orb Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cream-50 via-gray-50 to-gray-100 dark:from-charcoal-700 dark:via-charcoal-800 dark:to-slate-900">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full h-full max-w-[800px] max-h-[800px]">
+            <Orb
+              hoverIntensity={0.5}
+              rotateOnHover={true}
+              hue={160}
+              forceHoverState={false}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Animated gradient overlay */}
+      {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent dark:from-black/30 pointer-events-none" />
 
       {/* Hero Content */}

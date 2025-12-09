@@ -14,8 +14,8 @@ import {
 } from '@/components/ui/ReactBits';
 
 const aboutStats = [
-  { icon: Code2, label: 'Projects', value: '10+' },
-  { icon: Zap, label: 'Technologies', value: '15+' },
+  { icon: Code2, label: 'Projects', value: '6+' },
+  { icon: Zap, label: 'Technologies', value: '10+' },
   { icon: Heart, label: 'Happy Clients', value: '5+' },
 ];
 
