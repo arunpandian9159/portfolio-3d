@@ -105,8 +105,8 @@ export default function Header() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 will-change-transform transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled
         ? 'bg-white/90 dark:bg-charcoal-800/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-gray-200/50 dark:border-gray-700/50'
         : 'bg-white/60 dark:bg-charcoal-800/60 backdrop-blur-lg border-b border-transparent'
         }`}
@@ -117,14 +117,15 @@ export default function Header() {
           <MagneticButton strength={0.15}>
             <motion.button
               onClick={() => handleNavClick('#hero')}
-              className="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 rounded-lg"
+              className="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 rounded-lg will-change-transform"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
               <span className="sr-only">Go to hero</span>
               <div className="flex items-center gap-2">
                 <motion.div
-                  className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-teal-500/30 shadow-lg hover:ring-teal-500/50"
+                  className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-teal-500/30 shadow-lg hover:ring-teal-500/50 will-change-transform"
                   whileHover={{
                     scale: 1.1,
                     boxShadow: '0 0 20px rgba(20, 184, 166, 0.4)',
@@ -136,7 +137,10 @@ export default function Header() {
                       '0 0 0 rgba(20, 184, 166, 0.4)',
                     ],
                   }}
-                  transition={{ duration: 3, repeat: Infinity }}
+                  transition={{
+                    boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+                    scale: { type: 'spring', stiffness: 300, damping: 20 }
+                  }}
                 >
                   <Image src="/icon-144.png" alt="Logo" fill className="object-cover" priority />
                 </motion.div>
@@ -151,7 +155,7 @@ export default function Header() {
 
           {/* Desktop Navigation with Enhanced Styling */}
           <div className="hidden md:block">
-            <div className="relative flex items-center gap-1 bg-gray-100/80 dark:bg-gray-800/80 rounded-full p-1.5 backdrop-blur-sm overflow-hidden">
+            <div className="relative flex items-center gap-1 bg-gray-100/80 dark:bg-gray-800/80 rounded-full p-1.5 backdrop-blur-sm overflow-hidden will-change-auto">
               {/* Animated background gradient */}
               <motion.div
                 className="absolute inset-0 opacity-30"
@@ -171,7 +175,7 @@ export default function Header() {
                   <MagneticButton key={item.href} strength={0.1}>
                     <button
                       onClick={() => handleNavClick(item.href)}
-                      className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${isActive
+                      className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ease-out ${isActive
                         ? 'text-white'
                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                         }`}
@@ -180,8 +184,14 @@ export default function Header() {
                       {isActive && (
                         <motion.div
                           layoutId="activeNav"
-                          className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full"
-                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                          className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full will-change-transform"
+                          transition={{
+                            type: 'spring',
+                            stiffness: 300,
+                            damping: 28,
+                            mass: 0.8,
+                            restDelta: 0.001
+                          }}
                         >
                           {/* Shimmer effect on active */}
                           <motion.div
@@ -192,7 +202,7 @@ export default function Header() {
                               ],
                               backgroundPosition: ['200% 0', '-200% 0'],
                             }}
-                            transition={{ duration: 2, repeat: Infinity }}
+                            transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
                             style={{ backgroundSize: '200% 100%' }}
                           />
                         </motion.div>
@@ -202,7 +212,7 @@ export default function Header() {
                           <motion.span
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.1 }}
+                            transition={{ delay: 0.08, type: 'spring', stiffness: 400, damping: 20 }}
                           >
                             {navIcons[item.label]}
                           </motion.span>
@@ -221,12 +231,13 @@ export default function Header() {
             {/* Theme Toggle with Enhanced Animation */}
             <MagneticButton strength={0.2}>
               <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
                 onClick={toggleTheme}
-                className="relative p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 backdrop-blur-sm overflow-hidden"
+                className="relative p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 backdrop-blur-sm overflow-hidden will-change-transform"
                 aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
                 title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
               >
                 {/* Glow effect */}
                 <motion.div
@@ -236,7 +247,7 @@ export default function Header() {
                       ? '0 0 15px rgba(250, 204, 21, 0.3)'
                       : '0 0 15px rgba(99, 102, 241, 0.3)',
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
                 />
 
                 <AnimatePresence mode="wait" initial={false}>
@@ -246,7 +257,7 @@ export default function Header() {
                       initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
                       animate={{ rotate: 0, opacity: 1, scale: 1 }}
                       exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                      transition={{ duration: 0.3, type: 'spring' }}
+                      transition={{ type: 'spring', stiffness: 350, damping: 22, mass: 0.8 }}
                     >
                       <Moon className="w-5 h-5 relative z-10" aria-hidden="true" />
                     </motion.div>
@@ -256,7 +267,7 @@ export default function Header() {
                       initial={{ rotate: 90, opacity: 0, scale: 0.5 }}
                       animate={{ rotate: 0, opacity: 1, scale: 1 }}
                       exit={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                      transition={{ duration: 0.3, type: 'spring' }}
+                      transition={{ type: 'spring', stiffness: 350, damping: 22, mass: 0.8 }}
                     >
                       <Sun className="w-5 h-5 relative z-10" aria-hidden="true" />
                     </motion.div>
@@ -270,10 +281,11 @@ export default function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 backdrop-blur-sm"
+              className="md:hidden p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 backdrop-blur-sm will-change-transform"
               aria-label="Toggle mobile menu"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
+              transition={{ type: 'spring', stiffness: 400, damping: 22 }}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isMobileMenuOpen ? (
@@ -282,7 +294,7 @@ export default function Header() {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 24 }}
                   >
                     <X className="w-5 h-5" aria-hidden="true" />
                   </motion.div>
@@ -292,7 +304,7 @@ export default function Header() {
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 24 }}
                   >
                     <Menu className="w-5 h-5" aria-hidden="true" />
                   </motion.div>
@@ -310,8 +322,12 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden overflow-hidden"
+              transition={{
+                duration: 0.35,
+                ease: [0.4, 0, 0.2, 1],
+                opacity: { duration: 0.25 }
+              }}
+              className="md:hidden overflow-hidden will-change-auto"
             >
               <div className="px-3 pt-3 pb-4 space-y-1 border-t border-gray-200/50 dark:border-gray-700/50" role="menu">
                 {navItems.map((item: NavItem, index) => {
@@ -319,11 +335,16 @@ export default function Header() {
                   return (
                     <motion.button
                       key={item.href}
-                      initial={{ opacity: 0, x: -30 }}
+                      initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, type: 'spring', stiffness: 300 }}
+                      transition={{
+                        delay: index * 0.04,
+                        type: 'spring',
+                        stiffness: 350,
+                        damping: 25
+                      }}
                       onClick={() => handleNavClick(item.href)}
-                      className={`relative flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 overflow-hidden ${isActive
+                      className={`relative flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 ease-out overflow-hidden will-change-transform ${isActive
                         ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg shadow-teal-500/25'
                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                         }`}
@@ -338,7 +359,7 @@ export default function Header() {
                             ],
                             backgroundPosition: ['200% 0', '-200% 0'],
                           }}
-                          transition={{ duration: 2, repeat: Infinity }}
+                          transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
                           style={{ backgroundSize: '200% 100%' }}
                         />
                       )}
@@ -348,8 +369,9 @@ export default function Header() {
                       <span className="relative z-10">{item.label}</span>
                       {isActive && (
                         <motion.span
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                           className="ml-auto relative z-10"
                         >
                           <Sparkles className="w-4 h-4" />
