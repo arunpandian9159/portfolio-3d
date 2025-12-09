@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeaderProps } from '@/types';
 import { cn } from '@/utils/cn';
-import { SplitText, GradientText, BlurText } from '@/components/ui/ReactBits';
 
 export default function SectionHeader({ title, subtitle, className }: SectionHeaderProps) {
   return (
@@ -14,34 +13,9 @@ export default function SectionHeader({ title, subtitle, className }: SectionHea
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        {/* Title with animated gradient */}
+        {/* Title */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
-          <GradientText
-            colors={['#1f2937', '#374151', '#1f2937']}
-            animationSpeed={5}
-            className="dark:hidden"
-          >
-            <SplitText
-              text={title}
-              delay={100}
-              staggerDuration={0.04}
-              animationFrom={{ opacity: 0, transform: 'translateY(20px)' }}
-              animationTo={{ opacity: 1, transform: 'translateY(0)' }}
-            />
-          </GradientText>
-          <GradientText
-            colors={['#f3f4f6', '#e5e7eb', '#f3f4f6']}
-            animationSpeed={5}
-            className="hidden dark:inline-block"
-          >
-            <SplitText
-              text={title}
-              delay={100}
-              staggerDuration={0.04}
-              animationFrom={{ opacity: 0, transform: 'translateY(20px)' }}
-              animationTo={{ opacity: 1, transform: 'translateY(0)' }}
-            />
-          </GradientText>
+          {title}
         </h2>
 
         {/* Animated divider */}
@@ -69,15 +43,10 @@ export default function SectionHeader({ title, subtitle, className }: SectionHea
           />
         </div>
 
-        {/* Subtitle with blur animation */}
+        {/* Subtitle */}
         {subtitle && (
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            <BlurText
-              text={subtitle}
-              delay={400}
-              animateBy="words"
-              direction="bottom"
-            />
+            {subtitle}
           </p>
         )}
       </motion.div>

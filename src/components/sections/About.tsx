@@ -8,8 +8,6 @@ import {
   RevealOnScroll,
   TiltedCard,
   SpotlightCard,
-  BlurText,
-  GradientText,
   FloatingElement,
   StaggerContainer,
   StaggerItem,
@@ -87,9 +85,7 @@ export default function About() {
                   <RevealOnScroll direction="right" delay={0.3}>
                     <div>
                       <h3 className="font-bold text-gray-900 dark:text-gray-100 text-3xl md:text-4xl mb-2">
-                        <GradientText colors={['#14b8a6', '#0d9488', '#06b6d4']} animationSpeed={5}>
-                          Arunpandian C
-                        </GradientText>
+                        Arunpandian C
                       </h3>
                       <p className="text-teal-600 dark:text-teal-400 font-medium text-lg">Full Stack Developer</p>
                     </div>
@@ -98,11 +94,7 @@ export default function About() {
                   <RevealOnScroll direction="right" delay={0.4}>
                     <div className="space-y-4">
                       <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base md:text-lg">
-                        <BlurText
-                          text="An aspiring full-stack developer with a strong foundation in front-end and back-end technologies. I have a passion for building responsive, scalable, and user-focused web applications."
-                          delay={0}
-                          animateBy="words"
-                        />
+                        An aspiring full-stack developer with a strong foundation in front-end and back-end technologies. I have a passion for building responsive, scalable, and user-focused web applications.
                       </p>
                       <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base md:text-lg">
                         I am committed to writing clean, efficient code and continuously learning new tools and frameworks.

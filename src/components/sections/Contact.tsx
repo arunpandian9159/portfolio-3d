@@ -14,12 +14,10 @@ import {
   RevealOnScroll,
   TiltedCard,
   SpotlightCard,
-  GradientText,
   FloatingElement,
   StaggerContainer,
   StaggerItem,
   MagneticButton,
-  BlurText,
   ParticlesBackground,
 } from '@/components/ui/ReactBits';
 
@@ -191,16 +189,12 @@ export default function Contact() {
             <RevealOnScroll direction="left" delay={0.1}>
               <div className="mb-8">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                  <GradientText colors={['#14b8a6', '#06b6d4', '#14b8a6']} animationSpeed={4}>
-                    Let&apos;s Connect
-                  </GradientText>
+                  <span className="bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+                    Let's Connect
+                  </span>
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  <BlurText
-                    text="Feel free to reach out through any of these channels. I'm always excited to discuss new projects and opportunities!"
-                    delay={0}
-                    animateBy="words"
-                  />
+                  Feel free to reach out through any of these channels. I'm always excited to discuss new projects and opportunities!
                 </p>
               </div>
             </RevealOnScroll>
@@ -214,33 +208,6 @@ export default function Contact() {
                 />
               ))}
             </StaggerContainer>
-
-            {/* Additional info */}
-            <RevealOnScroll direction="up" delay={0.6}>
-              <motion.div
-                className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-teal-500/5 to-cyan-500/5 dark:from-teal-500/10 dark:to-cyan-500/10 border border-teal-500/20"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-              >
-                <div className="flex items-start gap-4">
-                  <motion.div
-                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center shadow-lg"
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                  >
-                    <MessageSquare className="w-6 h-6 text-white" />
-                  </motion.div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                      Quick Response Guaranteed
-                    </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      I typically respond within 24 hours. Looking forward to hearing from you!
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </RevealOnScroll>
           </div>
 
           {/* Contact Form */}

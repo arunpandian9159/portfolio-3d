@@ -8,7 +8,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { navItems } from '@/data/portfolio';
 import { NavItem } from '@/types';
-import { MagneticButton, GradientText, ShinyText } from '@/components/ui/ReactBits';
+import { MagneticButton } from '@/components/ui/ReactBits';
 
 // Icon mapping for nav items
 const navIcons: Record<string, React.ReactNode> = {
@@ -141,13 +141,9 @@ export default function Header() {
                   <Image src="/icon-144.png" alt="Logo" fill className="object-cover" priority />
                 </motion.div>
                 <div className="flex items-center gap-1">
-                  <GradientText
-                    colors={['#14b8a6', '#0d9488', '#06b6d4', '#14b8a6']}
-                    animationSpeed={5}
-                    className="text-lg font-bold"
-                  >
+                  <span className="text-lg font-bold bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-500 bg-clip-text text-transparent">
                     Arunpandian
-                  </GradientText>
+                  </span>
                 </div>
               </div>
             </motion.button>

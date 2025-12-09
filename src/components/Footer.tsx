@@ -3,11 +3,9 @@
 import { motion } from 'framer-motion';
 import { Heart, Github, Linkedin, Mail, ArrowUp, Sparkles, Code2 } from 'lucide-react';
 import {
-  GradientText,
   MagneticButton,
   FloatingElement,
   RevealOnScroll,
-  ShinyText,
 } from '@/components/ui/ReactBits';
 
 const socialLinks = [
@@ -57,74 +55,14 @@ export default function Footer() {
             </div>
           </RevealOnScroll>
 
-          {/* Quote section */}
-          <RevealOnScroll direction="up" delay={0.2}>
-            <div className="text-center mb-10">
-              <motion.div
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/10 to-cyan-500/10 dark:from-teal-500/20 dark:to-cyan-500/20 border border-teal-500/20"
-                whileHover={{ scale: 1.02 }}
-              >
-                <Code2 className="w-5 h-5 text-teal-500" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  <ShinyText text="Building the future, one line of code at a time" speed={5} />
-                </span>
-                <Sparkles className="w-4 h-4 text-teal-500" />
-              </motion.div>
-            </div>
-          </RevealOnScroll>
-
-          {/* Social Links with enhanced hover effects */}
-          <RevealOnScroll direction="up" delay={0.3}>
-            <div className="flex justify-center gap-5 mb-10">
-              {socialLinks.map((social, index) => (
-                <MagneticButton key={social.label} strength={0.25}>
-                  <motion.a
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -5, scale: 1.15 }}
-                    whileTap={{ scale: 0.9 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    className="group relative p-4 rounded-xl bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 shadow-md hover:shadow-xl border border-gray-200/80 dark:border-gray-700/50 transition-all duration-300 overflow-hidden"
-                    aria-label={social.label}
-                  >
-                    {/* Hover background effect */}
-                    <motion.div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: `linear-gradient(135deg, ${social.color}10, ${social.color}20)`,
-                      }}
-                    />
-                    {/* Animated border */}
-                    <motion.div
-                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{
-                        border: `2px solid ${social.color}40`,
-                      }}
-                    />
-                    <social.icon
-                      className="w-6 h-6 relative z-10 transition-colors duration-300 group-hover:text-teal-500 dark:group-hover:text-teal-400"
-                    />
-                  </motion.a>
-                </MagneticButton>
-              ))}
-            </div>
-          </RevealOnScroll>
-
           {/* Copyright with animated heart */}
           <RevealOnScroll direction="up" delay={0.4}>
             <div className="text-center">
               <p className="text-sm text-gray-600 dark:text-gray-400 flex flex-wrap items-center justify-center gap-2">
                 <span>&copy; {new Date().getFullYear()}</span>
-                <GradientText
-                  colors={['#14b8a6', '#06b6d4', '#14b8a6']}
-                  animationSpeed={4}
-                  className="font-semibold"
-                >
+                <span className="font-semibold bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
                   Arunpandian C
-                </GradientText>
+                </span>
                 <span className="text-gray-300 dark:text-gray-600">•</span>
                 <span className="flex items-center gap-1.5">
                   Made with
@@ -141,30 +79,15 @@ export default function Footer() {
                 <motion.span
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
+                  className="inline-flex items-center"
                 >
-                  🇮🇳
+                  <img
+                    src="https://flagcdn.com/w40/in.png"
+                    alt="India Flag"
+                    className="w-5 h-auto rounded-sm shadow-sm"
+                  />
                 </motion.span>
               </p>
-
-              {/* Tech stack badges */}
-              <motion.div
-                className="mt-4 flex flex-wrap items-center justify-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                {['Next.js', 'React', 'Tailwind', 'Framer Motion'].map((tech, i) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.7 + i * 0.1 }}
-                    className="px-2 py-1 text-xs font-medium text-gray-500 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 rounded-md"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </motion.div>
             </div>
           </RevealOnScroll>
         </div>

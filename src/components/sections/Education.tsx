@@ -9,11 +9,9 @@ import {
   RevealOnScroll,
   SpotlightCard,
   TiltedCard,
-  GradientText,
   FloatingElement,
   StaggerContainer,
   StaggerItem,
-  BlurText,
 } from '@/components/ui/ReactBits';
 
 function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
@@ -74,15 +72,15 @@ function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
                   whileHover={{ scale: 1.05 }}
                 >
                   <Award className="w-5 h-5 text-amber-500" />
-                  <GradientText colors={['#f59e0b', '#f97316', '#f59e0b']} animationSpeed={3}>
+                  <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 bg-clip-text text-transparent">
                     {item.grade}
-                  </GradientText>
+                  </span>
                 </motion.span>
               </div>
 
-              {/* Title with animation */}
+              {/* Title */}
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                <BlurText text={item.title} delay={index * 200} animateBy="words" />
+                {item.title}
               </h3>
 
               {/* Institution */}
@@ -181,13 +179,9 @@ export default function Education() {
               >
                 📚
               </motion.div>
-              <GradientText
-                colors={['#14b8a6', '#06b6d4', '#14b8a6']}
-                animationSpeed={4}
-                className="text-sm font-medium"
-              >
+              <span className="text-sm font-medium bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
                 Continuous Learner
-              </GradientText>
+              </span>
             </div>
           </motion.div>
         </RevealOnScroll>

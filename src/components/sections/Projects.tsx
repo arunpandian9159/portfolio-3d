@@ -11,23 +11,25 @@ import {
   RevealOnScroll,
   TiltedCard,
   SpotlightCard,
-  GradientText,
   FloatingElement,
   StaggerContainer,
   StaggerItem,
-  BlurText,
   MagneticButton,
 } from "@/components/ui/ReactBits"
 
 const projectsData = [
   {
-    id: "vehicle-detection",
-    title: "Vehicle Detection and Identification",
+    id: "jez-cabs",
+    title: "Jez Cabs Management Platform",
+    shortTitle: "Jez Cabs",
     description:
-      "A system used to detect and identify vehicles, including number plate detection for security purposes.",
-    tech: ["Python", "OpenCV", "Machine Learning"],
-    teamSize: 3,
+      "A comprehensive, production-ready multi-tenant SaaS platform for B2B cab rental companies. Features fleet management, bookings, driver coordination, maintenance scheduling, and invoicing.",
+    tech: ["NestJS", "React", "PostgreSQL", "MongoDB", "TypeScript"],
+    teamSize: 1,
     color: { from: "#22c55e", to: "#16a34a" },
+    featured: true,
+    github: "https://github.com/arunpandian9159/Jez-Cabs-Management-Platform",
+    live: "https://jez-cabs-management-platform.vercel.app/",
   },
   {
     id: "nft-certification",
@@ -39,6 +41,7 @@ const projectsData = [
     teamSize: 3,
     color: { from: "#8b5cf6", to: "#6366f1" },
     featured: true,
+    github: "https://github.com/arunpandian9159/NFT-PROJECT",
   },
   {
     id: "internbyte",
@@ -49,6 +52,7 @@ const projectsData = [
     tech: ["Next.js", "TypeScript", "SQL"],
     teamSize: 4,
     color: { from: "#3b82f6", to: "#2563eb" },
+    live: "https://internbyte.com",
   },
   {
     id: "travel-crm",
@@ -63,7 +67,7 @@ const projectsData = [
 ]
 
 interface ProjectCardProps {
-  project: typeof projectsData[0]
+  project: typeof projectsData[0] & { github?: string; live?: string }
   index: number
   onClick: () => void
 }
@@ -106,9 +110,9 @@ function ProjectCard({ project, index, onClick }: ProjectCardProps) {
             )}
 
             {/* Card header with gradient icon */}
-            <div className="relative z-10 mb-4">
+            <div className="relative z-10 mb-4 flex items-center gap-4">
               <motion.div
-                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300"
+                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 shrink-0"
                 style={{
                   background: `linear-gradient(135deg, ${project.color.from}, ${project.color.to})`,
                 }}
@@ -116,7 +120,7 @@ function ProjectCard({ project, index, onClick }: ProjectCardProps) {
                 <Github className="w-6 h-6 text-white" />
               </motion.div>
 
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors mb-2 line-clamp-2">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors line-clamp-2">
                 {project.title}
               </h3>
             </div>
@@ -147,9 +151,40 @@ function ProjectCard({ project, index, onClick }: ProjectCardProps) {
 
             {/* Footer */}
             <div className="relative z-10 flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                <Users className="w-4 h-4" />
-                <span>Team of {project.teamSize}</span>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                  <Users className="w-4 h-4" />
+                  <span>Team of {project.teamSize}</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                      title="View Code"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>GitHub</span>
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-400 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                      title="View Live Site"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Live View</span>
+                    </a>
+                  )}
+                </div>
               </div>
 
               <motion.div
@@ -241,13 +276,9 @@ export default function Projects() {
             >
               <div className="p-6 md:p-8">
                 <div className="flex justify-between items-start mb-6">
-                  <GradientText
-                    colors={['#14b8a6', '#06b6d4', '#14b8a6']}
-                    animationSpeed={4}
-                    className="text-2xl font-bold"
-                  >
+                  <span className="text-2xl font-bold bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
                     Project Details
-                  </GradientText>
+                  </span>
                   <motion.button
                     onClick={() => setSelectedProject(null)}
                     className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
@@ -267,7 +298,7 @@ export default function Projects() {
                   >
                     <div>
                       <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                        <BlurText text="NFT Based Certification System for Digital Artwork" delay={0} animateBy="words" />
+                        NFT Based Certification System for Digital Artwork
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         This project presents a decentralized certification system for digital artwork leveraging
@@ -404,7 +435,7 @@ export default function Projects() {
                   </motion.div>
                 )}
 
-                {selectedProject === "vehicle-detection" && (
+                {selectedProject === "jez-cabs" && (
                   <motion.div
                     className="space-y-6"
                     initial={{ opacity: 0, y: 20 }}
@@ -413,28 +444,94 @@ export default function Projects() {
                   >
                     <div>
                       <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                        <BlurText text="Vehicle Detection and Identification" delay={0} animateBy="words" />
+                        Jez Cabs Management Platform
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                        A comprehensive system designed to detect and identify vehicles using computer vision
-                        techniques. The system includes advanced number plate detection capabilities for
-                        enhanced security and monitoring purposes.
+                        A comprehensive, production-ready multi-tenant SaaS platform designed specifically for B2B cab rental companies.
+                        The platform enables businesses to efficiently manage their entire cab rental operations including vehicle fleet
+                        management, bookings, driver coordination, maintenance scheduling, and invoicing. Built on a Modular Monolith
+                        Architecture, it provides clear separation of concerns with event-driven communication, making it scalable and
+                        ready for future microservices extraction when needed.
                       </p>
+                      <div className="flex flex-wrap gap-4 mb-4">
+                        <Badge variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700">
+                          Role: Full Stack Developer
+                        </Badge>
+                        <a
+                          href="https://github.com/arunpandian9159/Jez-Cabs-Management-Platform"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white font-medium text-sm transition-colors"
+                        >
+                          <Github className="w-4 h-4" /> View Source
+                        </a>
+                        <a
+                          href="https://jez-cabs-management-platform.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium text-sm transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4" /> Live Demo
+                        </a>
+                      </div>
                     </div>
 
+                    {/* Core Business Features */}
+                    <RevealOnScroll direction="up" delay={0.2}>
+                      <div>
+                        <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Core Business Features</h5>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {[
+                            { module: "Identity & Access", features: "Multi-tenant registration, JWT auth, RBAC" },
+                            { module: "Cab Inventory", features: "Fleet CRUD, Status tracking, Document expiry alerts" },
+                            { module: "Booking & Rental", features: "Bookings management, Availability checking" },
+                            { module: "Driver Management", features: "Driver profiles, License tracking, Assignments" },
+                            { module: "GPS & Telematics", features: "Real-time location, Geofencing, Route playback" },
+                            { module: "Invoicing", features: "Auto invoice generation, PDF & email delivery" },
+                          ].map((item, i) => (
+                            <motion.div
+                              key={item.module}
+                              className="bg-gray-100 dark:bg-white/5 rounded-lg p-3"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.3 + i * 0.05 }}
+                            >
+                              <p className="font-semibold text-green-600 dark:text-green-400 text-sm">{item.module}</p>
+                              <p className="text-gray-600 dark:text-gray-400 text-xs">{item.features}</p>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </RevealOnScroll>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <RevealOnScroll direction="up" delay={0.2}>
+                      <RevealOnScroll direction="up" delay={0.3}>
                         <div>
-                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Technical Stack</h5>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Backend Stack</h5>
                           <div className="flex flex-wrap gap-2 mb-4">
-                            {["Python", "OpenCV", "Machine Learning", "Computer Vision"].map((tech, i) => (
+                            {["NestJS", "PostgreSQL", "MongoDB", "JWT", "RabbitMQ", "TypeORM", "Swagger"].map((tech, i) => (
                               <motion.span
                                 key={tech}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3 + i * 0.1 }}
+                                transition={{ delay: 0.4 + i * 0.05 }}
                               >
                                 <Badge variant="secondary" className="bg-green-500/20 text-green-700 dark:text-green-300">
+                                  {tech}
+                                </Badge>
+                              </motion.span>
+                            ))}
+                          </div>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3 mt-4">Frontend Stack</h5>
+                          <div className="flex flex-wrap gap-2">
+                            {["React 18", "TypeScript", "Vite", "Material-UI", "React Query", "Leaflet"].map((tech, i) => (
+                              <motion.span
+                                key={tech}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.5 + i * 0.05 }}
+                              >
+                                <Badge variant="secondary" className="bg-blue-500/20 text-blue-700 dark:text-blue-300">
                                   {tech}
                                 </Badge>
                               </motion.span>
@@ -443,26 +540,27 @@ export default function Projects() {
                         </div>
                       </RevealOnScroll>
 
-                      <RevealOnScroll direction="up" delay={0.3}>
+                      <RevealOnScroll direction="up" delay={0.4}>
                         <div>
-                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Key Features</h5>
+                          <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Security Features</h5>
                           <ul className="text-gray-600 dark:text-gray-300 space-y-2">
                             {[
-                              "Real-time vehicle detection",
-                              "Number plate recognition (ANPR)",
-                              "Vehicle classification",
-                              "Security monitoring",
-                              "Data logging capabilities",
+                              "JWT token-based authentication",
+                              "Password hashing with bcrypt",
+                              "Role-based access control (RBAC)",
+                              "Multi-tenant data isolation",
+                              "Rate limiting on public endpoints",
+                              "SQL injection & XSS protection",
                             ].map((feature, i) => (
                               <motion.li
                                 key={feature}
                                 className="flex items-start gap-2"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.4 + i * 0.1 }}
+                                transition={{ delay: 0.5 + i * 0.05 }}
                               >
-                                <span className="text-green-500 mt-1">•</span>
-                                {feature}
+                                <span className="text-green-500 mt-1">🔐</span>
+                                <span className="text-sm">{feature}</span>
                               </motion.li>
                             ))}
                           </ul>
@@ -472,21 +570,49 @@ export default function Projects() {
 
                     <RevealOnScroll direction="up" delay={0.5}>
                       <div>
-                        <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Project Details</h5>
+                        <h5 className="text-lg font-semibold text-teal-600 dark:text-teal-400 mb-3">Architecture & DevOps</h5>
                         <div className="bg-gray-100 dark:bg-white/5 rounded-lg p-6">
-                          <div className="grid grid-cols-3 gap-4 text-center">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                             <div>
-                              <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
-                              <p className="text-sm text-gray-500 dark:text-gray-400">Team Members</p>
+                              <p className="text-lg font-bold text-gray-900 dark:text-white">Modular Monolith</p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">Architecture</p>
                             </div>
                             <div>
-                              <p className="text-2xl font-bold text-gray-900 dark:text-white">Python</p>
-                              <p className="text-sm text-gray-500 dark:text-gray-400">Primary Language</p>
+                              <p className="text-lg font-bold text-gray-900 dark:text-white">Docker</p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">Containerization</p>
                             </div>
                             <div>
-                              <p className="text-2xl font-bold text-gray-900 dark:text-white">95%</p>
-                              <p className="text-sm text-gray-500 dark:text-gray-400">Accuracy</p>
+                              <p className="text-lg font-bold text-gray-900 dark:text-white">Jest</p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">Testing</p>
                             </div>
+                            <div>
+                              <p className="text-lg font-bold text-gray-900 dark:text-white">ESLint</p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">Code Quality</p>
+                            </div>
+                          </div>
+                          <div className="mt-6 flex flex-wrap justify-center gap-3">
+                            <MagneticButton strength={0.15}>
+                              <a
+                                href="https://github.com/arunpandian9159/Jez-Cabs-Management-Platform"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center space-x-2 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
+                              >
+                                <Github className="w-5 h-5" />
+                                <span>View on GitHub</span>
+                              </a>
+                            </MagneticButton>
+                            <MagneticButton strength={0.15}>
+                              <a
+                                href="https://jez-cabs-management-platform.vercel.app/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
+                              >
+                                <ExternalLink className="w-5 h-5" />
+                                <span>Live Demo</span>
+                              </a>
+                            </MagneticButton>
                           </div>
                         </div>
                       </div>
@@ -503,7 +629,7 @@ export default function Projects() {
                   >
                     <div>
                       <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                        <BlurText text="Internship Management System (Internbyte)" delay={0} animateBy="words" />
+                        Internship Management System (Internbyte)
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Internbyte is a comprehensive internship management platform designed to streamline student
@@ -587,7 +713,7 @@ export default function Projects() {
                   >
                     <div>
                       <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                        <BlurText text="Travel Industry CRM Platform" delay={0} animateBy="words" />
+                        Travel Industry CRM Platform
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         A comprehensive Customer Relationship Management system designed specifically for the travel

@@ -10,7 +10,6 @@ import {
   RevealOnScroll,
   TiltedCard,
   SpotlightCard,
-  GradientText,
   FloatingElement,
   StaggerContainer,
   StaggerItem,
@@ -65,14 +64,16 @@ function ExperienceCard({ experience, index }: { experience: ExperienceItem; ind
               />
             </motion.div>
 
-            {/* Title with gradient */}
+            {/* Title */}
             <h3 className="text-lg md:text-xl font-bold mb-4 transition-colors">
-              <GradientText
-                colors={[colors.from, colors.to, colors.from]}
-                animationSpeed={4}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${colors.from}, ${colors.to})`,
+                }}
               >
                 {experience.title}
-              </GradientText>
+              </span>
             </h3>
 
             {/* Description or List */}
@@ -203,9 +204,9 @@ export default function Experience() {
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
                   <div className="text-3xl md:text-4xl font-bold mb-1">
-                    <GradientText colors={['#14b8a6', '#06b6d4']} animationSpeed={3}>
+                    <span className="bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent">
                       <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2} />
-                    </GradientText>
+                    </span>
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     {stat.label}
@@ -229,9 +230,9 @@ export default function Experience() {
               whileHover={{ scale: 1.05 }}
             >
               <Sparkles className="w-4 h-4 text-teal-500 animate-pulse" />
-              <GradientText colors={['#14b8a6', '#06b6d4', '#14b8a6']} animationSpeed={3}>
+              <span className="bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
                 Building experience every day
-              </GradientText>
+              </span>
             </motion.div>
           </motion.div>
         </RevealOnScroll>
