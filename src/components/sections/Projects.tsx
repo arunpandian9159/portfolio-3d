@@ -29,7 +29,7 @@ const projectsData = [
     color: { from: "#22c55e", to: "#16a34a" },
     featured: true,
     github: "https://github.com/arunpandian9159/Jez-Cabs-Management-Platform",
-    live: "https://jez-cabs-management-platform.vercel.app/",
+    live: "https://jez-cabs-management-frontend.vercel.app/",
   },
   {
     id: "nft-certification",
@@ -466,7 +466,7 @@ export default function Projects() {
                           <Github className="w-4 h-4" /> View Source
                         </a>
                         <a
-                          href="https://jez-cabs-management-platform.vercel.app/"
+                          href="https://jez-cabs-management-frontend.vercel.app/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 font-medium text-sm transition-colors"
@@ -604,7 +604,7 @@ export default function Projects() {
                             </MagneticButton>
                             <MagneticButton strength={0.15}>
                               <a
-                                href="https://jez-cabs-management-platform.vercel.app/"
+                                href="https://jez-cabs-management-frontend.vercel.app/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
