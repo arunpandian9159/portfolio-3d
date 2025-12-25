@@ -12,3 +12,4 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     </ThemeProvider>
   );
 }
+ 
