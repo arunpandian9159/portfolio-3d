@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* Font is already loaded via next/font/google in layout.tsx - no need for @import */
-
+ 
 :root {
   --font-geist-sans: 'Inter', system-ui, sans-serif;
   --font-geist-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
