@@ -12,7 +12,7 @@ import {
   FloatingElement,
   StaggerContainer,
   StaggerItem,
-} from '@/components/ui/ReactBits';
+} from '@/components/ui/ReactBits'; 
 
 // Icon mapping for skill categories
 const categoryIcons: Record<string, React.ReactNode> = {
