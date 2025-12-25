@@ -56,7 +56,7 @@ export default function Home() {
       <LazySection rootMargin="200px">
         <Experience />
       </LazySection>
-
+ 
       <LazySection rootMargin="200px">
         <Contact />
       </LazySection>
