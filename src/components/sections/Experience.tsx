@@ -9,7 +9,7 @@ import Icon from '@/components/ui/Icon';
 import { CheckCircle2, Sparkles, X, ExternalLink } from 'lucide-react';
 import {
   RevealOnScroll,
-  TiltedCard,
+  TiltedCard, 
   SpotlightCard,
   FloatingElement,
   StaggerContainer,
