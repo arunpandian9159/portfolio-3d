@@ -10,7 +10,7 @@ import {
   SpotlightCard,
   TiltedCard,
   FloatingElement,
-  StaggerContainer,
+  StaggerContainer, 
   StaggerItem,
 } from '@/components/ui/ReactBits';
 
