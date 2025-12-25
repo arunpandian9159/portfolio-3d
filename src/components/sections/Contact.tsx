@@ -8,7 +8,7 @@ import { ContactInfo, ContactFormData } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import Icon from '@/components/ui/Icon';
+import Icon from '@/components/ui/Icon'; 
 import { useNotificationContext } from '@/components/NotificationProvider';
 import {
   RevealOnScroll,
