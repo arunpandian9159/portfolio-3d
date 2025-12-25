@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/ui/SectionHeader"
 import {
   RevealOnScroll,
-  TiltedCard,
+  TiltedCard, 
   SpotlightCard,
   FloatingElement,
   StaggerContainer,
