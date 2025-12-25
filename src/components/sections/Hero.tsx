@@ -66,7 +66,7 @@ export default function Hero() {
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
 
         {/* Greeting Badge */}
-        <RevealOnScroll direction="up" delay={0.1}>
+        <RevealOnScroll direction="up" delay={0.1}> 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
