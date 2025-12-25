@@ -110,7 +110,7 @@ export default function Header() {
         ? 'bg-white/90 dark:bg-charcoal-800/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-gray-200/50 dark:border-gray-700/50'
         : 'bg-white/60 dark:bg-charcoal-800/60 backdrop-blur-lg border-b border-transparent'
         }`}
-    >
+    > 
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo with Magnetic Effect */}
