@@ -7,7 +7,7 @@ interface LazyLoadProps {
     threshold?: number;
     rootMargin?: string;
     placeholder?: ReactNode;
-}
+} 
 
 /**
  * Lazy load component that only renders children when visible in viewport
