@@ -17,7 +17,7 @@ const socialLinks = [
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }; 
 
   return (
     <footer className="relative bg-gradient-to-t from-gray-100 to-white dark:from-charcoal-800 dark:to-charcoal-700 border-t border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
