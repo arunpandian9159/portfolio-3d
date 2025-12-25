@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react';
 import { useNotification } from '@/hooks/useNotification';
 import Notification from '@/components/ui/Notification';
 
-interface NotificationContextType {
+interface NotificationContextType { 
   showNotification: (message: string, type?: 'success' | 'error' | 'info') => string;
   removeNotification: (id: string) => void;
   clearAllNotifications: () => void;
