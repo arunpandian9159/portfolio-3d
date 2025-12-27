@@ -12,7 +12,7 @@ import {
   FloatingElement,
   StaggerContainer, 
   StaggerItem,
-} from '@/components/ui/ReactBits';
+} from '@/components/ui/ReactBits'; 
 
 function TimelineItem({ item, index }: { item: EducationItem; index: number }) {
   const isLast = index === educationItems.length - 1;
