@@ -8,7 +8,7 @@ interface LazyLoadProps {
     rootMargin?: string;
     placeholder?: ReactNode;
 } 
-
+ 
 /**
  * Lazy load component that only renders children when visible in viewport
  * Uses IntersectionObserver for efficient detection
