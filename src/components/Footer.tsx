@@ -13,7 +13,7 @@ const socialLinks = [
   { icon: Linkedin, href: 'https://www.linkedin.com/in/arunpandian-c/', label: 'LinkedIn', color: '#0077b5' },
   { icon: Mail, href: 'mailto:arunpandiancse25@gmail.com', label: 'Email', color: '#ea4335' },
 ];
-
+ 
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
