@@ -61,7 +61,7 @@ export default function Hero() {
 
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent dark:from-black/30 pointer-events-none" />
-
+ 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
 
