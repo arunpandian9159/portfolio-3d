@@ -114,7 +114,7 @@ export default function Header() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo with Magnetic Effect */}
-          <MagneticButton strength={0.15}>
+          <MagneticButton strength={0.15}> 
             <motion.button
               onClick={() => handleNavClick('#hero')}
               className="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 rounded-lg will-change-transform"
