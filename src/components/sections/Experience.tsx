@@ -6,7 +6,7 @@ import { experienceItems } from '@/data/portfolio';
 import { ExperienceItem } from '@/types';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Icon from '@/components/ui/Icon';
-import { CheckCircle2, Sparkles, X, ExternalLink } from 'lucide-react';
+import { CheckCircle2, Sparkles, X, ExternalLink } from 'lucide-react'; 
 import {
   RevealOnScroll,
   TiltedCard, 
