@@ -12,7 +12,7 @@ import Icon from '@/components/ui/Icon';
 import { useNotificationContext } from '@/components/NotificationProvider';
 import {
   RevealOnScroll,
-  TiltedCard,
+  TiltedCard, 
   SpotlightCard,
   FloatingElement,
   StaggerContainer,
