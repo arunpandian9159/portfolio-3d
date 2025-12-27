@@ -53,7 +53,7 @@ export default function Home() {
         <Projects />
       </LazySection>
 
-      <LazySection rootMargin="200px">
+      <LazySection rootMargin="200px"> 
         <Experience />
       </LazySection>
  
